@@ -2,6 +2,7 @@ import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { about3, Intern1, Intern10, Intern11, Intern12, Intern13, Intern14, Intern15, Intern2, Intern3, Intern4, Intern5, Intern6, Intern7, Intern8, Intern9 } from '../assets/assets';
 
 const Internship = () => {
   // Intersection Observer hooks for animations
@@ -10,10 +11,10 @@ const Internship = () => {
     triggerOnce: true,
   });
 
-  const { ref: internshipsRef, inView: internshipsInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+  // const { ref: internshipsRef, inView: internshipsInView } = useInView({
+  //   threshold: 0.1,
+  //   triggerOnce: true,
+  // });
 
   const { ref: benefitsRef, inView: benefitsInView } = useInView({
     threshold: 0.1,
@@ -25,7 +26,7 @@ const Internship = () => {
     {
       title: 'Web Development Intern',
       description: 'Learn modern web technologies including React, Node.js, and database management while building real-world applications.',
-      image: 'images/pic.jpg',
+      image: Intern1,
       duration: '3-6 months',
       skills: ['React','Html','CSS', 'JavaScript', 'Node.js', 'MongoDB', 'Git'],
       requirements: 'Basic knowledge of HTML, CSS, and JavaScript',
@@ -33,7 +34,7 @@ const Internship = () => {
     {
       title: 'Graphic Designing Intern',
       description: 'Create stunning visual designs for various media including logos, brochures, and digital graphics using industry-standard tools.',
-      image: 'images/pic1.jpg',
+      image: Intern2,
       duration: '3-6 months',
       skills: ['Adobe Creative Suite', 'Figma', 'Canva', 'Typography', 'Brand Design'],
       requirements: 'Portfolio showcasing design projects and creativity',
@@ -41,7 +42,7 @@ const Internship = () => {
     {
       title: 'Outreach Intern',
       description: 'Build relationships with potential clients and partners through strategic outreach and communication campaigns.',
-      image: 'images/pic2.jpg',
+      image: Intern3,
       duration: '3-6 months',
       skills: ['Email Marketing', 'Lead Generation', 'CRM Tools', 'Communication', 'Research'],
       requirements: 'Excellent communication skills and networking abilities',
@@ -49,7 +50,7 @@ const Internship = () => {
     {
       title: 'Business Analyst Intern',
       description: 'Analyze business processes, identify opportunities for improvement, and support data-driven decision making.',
-      image: 'images/pic3.jpg',
+      image: Intern4,
       duration: '3-6 months',
       skills: ['Data Analysis', 'Excel', 'Business Intelligence', 'Process Mapping', 'Reporting'],
       requirements: 'Analytical mindset and basic knowledge of business concepts',
@@ -57,7 +58,7 @@ const Internship = () => {
     {
       title: 'HR Intern',
       description: 'Support human resources activities including recruitment, employee engagement, and administrative tasks.',
-      image: 'images/pic4.jpg',
+      image: Intern5,
       duration: '3-6 months',
       skills: ['Recruitment', 'Employee Relations', 'HR Software', 'Communication', 'Documentation'],
       requirements: 'Interest in human resources and strong interpersonal skills',
@@ -65,7 +66,7 @@ const Internship = () => {
     {
       title: 'Accountant Intern',
       description: 'Assist with financial record keeping, bookkeeping, and basic accounting tasks using modern accounting software.',
-      image: 'images/pic5.jpg',
+      image: Intern6,
       duration: '3-6 months',
       skills: ['QuickBooks', 'Excel', 'Financial Analysis', 'Bookkeeping', 'Tax Preparation'],
       requirements: 'Basic accounting knowledge and attention to detail',
@@ -73,7 +74,7 @@ const Internship = () => {
     {
       title: 'Legal Advisor Intern',
       description: 'Support legal research, document preparation, and compliance activities under professional supervision.',
-      image: 'images/pic6.jpg',
+      image: Intern7,
       duration: '3-6 months',
       skills: ['Legal Research', 'Document Drafting', 'Compliance', 'Contract Review', 'Legal Writing'],
       requirements: 'Law student or legal studies background preferred',
@@ -81,7 +82,7 @@ const Internship = () => {
     {
       title: 'Digital Marketing Intern',
       description: 'Develop and execute marketing campaigns across various channels to promote brand awareness and growth.',
-      image: 'images/pic7.jpg',
+      image: Intern8,
       duration: '3-6 months',
       skills: ['Digital Marketing', 'Content Strategy', 'SEO', 'Analytics', 'Campaign Management'],
       requirements: 'Creative thinking and interest in marketing trends',
@@ -89,7 +90,7 @@ const Internship = () => {
     {
       title: 'Social Media Manager Intern',
       description: 'Manage social media accounts, create engaging content, and analyze performance metrics across platforms.',
-      image: 'images/pic8.jpg',
+      image: Intern9,
       duration: '3-6 months',
       skills: ['Social Media Platforms', 'Content Creation', 'Analytics', 'Community Management', 'Scheduling Tools'],
       requirements: 'Strong social media presence and creative content skills',
@@ -97,7 +98,7 @@ const Internship = () => {
     {
       title: 'Content Writer Intern',
       description: 'Create compelling written content for websites, blogs, marketing materials, and social media platforms.',
-      image: 'images/pic9.jpg',
+      image: Intern10,
       duration: '3-6 months',
       skills: ['Creative Writing', 'SEO Writing', 'Research', 'Editing', 'Content Strategy'],
       requirements: 'Excellent writing skills and creativity',
@@ -105,7 +106,7 @@ const Internship = () => {
     {
       title: 'Video Editing Intern',
       description: 'Edit and produce engaging video content for marketing campaigns, social media, and promotional materials.',
-      image: 'images/pic10.jpg',
+      image: Intern11,
       duration: '3-6 months',
       skills: ['Adobe Premiere Pro', 'After Effects', 'Final Cut Pro', 'Motion Graphics', 'Color Correction'],
       requirements: 'Basic video editing experience and creative vision',
@@ -113,7 +114,7 @@ const Internship = () => {
     {
       title: 'Sales Intern',
       description: 'Support sales activities including lead qualification, client communication, and sales process optimization.',
-      image: 'images/pic11.jpg',
+      image: Intern12,
       duration: '3-6 months',
       skills: ['Sales Techniques', 'CRM Software', 'Lead Generation', 'Client Relations', 'Presentation Skills'],
       requirements: 'Strong communication skills and goal-oriented mindset',
@@ -123,17 +124,17 @@ const Internship = () => {
   // Benefits data with images
   const benefits = [
     {
-      image: 'images/Mentorship.png',
+      image: Intern13,
       title: 'Mentorship',
       description: 'Work directly with experienced professionals who will guide your learning journey.',
     },
     {
-      image: 'images/Real Projects.jpg',
+      image: Intern14,
       title: 'Real Projects',
       description: 'Contribute to actual client projects and see your work make a real impact.',
     },
     {
-      image: 'images/Flexible Schedule.png',
+      image: Intern15,
       title: 'Flexible Schedule',
       description: 'Remote-friendly internships with flexible hours to accommodate your studies.',
     },
@@ -167,11 +168,11 @@ const Internship = () => {
 
       {/* Internship Opportunities */}
       <section 
-        ref={internshipsRef}
+        // ref={internshipsRef}
         className="py-20 bg-white"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-16 ${internshipsInView ? 'fade-in' : 'opacity-0'}`}>
+          <div className={`text-center mb-16 `}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">Open Positions</span>
             </h2>
@@ -184,9 +185,7 @@ const Internship = () => {
             {internships.map((internship, index) => (
               <div
                 key={internship.title}
-                className={`card-hover bg-white rounded-2xl shadow-lg overflow-hidden ${
-                  internshipsInView ? 'fade-in' : 'opacity-0'
-                }`}
+                className={`card-hover bg-white rounded-2xl shadow-lg overflow-hidden`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="h-48 overflow-hidden">
@@ -306,7 +305,7 @@ const Internship = () => {
             
             <div className={`${benefitsInView ? 'slide-in-right' : 'opacity-0'}`}>
               <img 
-                src="images/Team.jpg" 
+                src={about3} 
                 alt="Team collaboration"
                 className="rounded-2xl shadow-lg w-full h-80 object-cover"
                 loading="lazy"

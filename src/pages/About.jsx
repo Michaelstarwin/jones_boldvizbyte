@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { about1, about2, about3 } from '../assets/assets';
+
 
 const About = () => {
   const { ref: heroRef, inView: heroInView } = useInView({
@@ -45,7 +47,7 @@ const About = () => {
     {
       name: 'Micheal Jones J',
       role: 'Founder & CEO',
-      image: 'images/Founder.jpg',
+      image: about1,
       bio: 'Visionary leader driving innovation in digital design and development solutions.',
       linkedin: 'https://www.linkedin.com/in/michealjonesj',
       instagram: 'https://www.instagram.com/jones_boldvizbyte?utm_source=qr&igsh=ZHY5MDhsOGtlemw1'
@@ -53,7 +55,7 @@ const About = () => {
     {
       name: 'Michael Starwin Raj M',
       role: 'Co-Founder & CTO',
-      image: 'images/Co_Founder.jpeg',
+      image: about2,
       bio: 'Technical expert passionate about creating cutting-edge web solutions and mentoring talent.',
       linkedin: 'https://www.linkedin.com/in/michaelstarwinraj',
       instagram: 'https://www.instagram.com/ds_sails_boy?igsh=c2J0ang1aXJuZnNo'
@@ -103,7 +105,7 @@ const About = () => {
             
             <div>
               <img 
-                src="images/Team.jpg" 
+                src={about3} 
                 alt="Team collaboration"
                 className="rounded-2xl shadow-lg w-full h-96 object-cover"
                 loading="lazy"
@@ -228,11 +230,6 @@ const About = () => {
                   className="hover:opacity-80 transition-opacity duration-200"
                   aria-label={`${member.name}'s LinkedIn`}
                 >
-                  <img 
-                    src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" 
-                    alt="LinkedIn" 
-                    className="h-6 w-6 object-contain"
-                  />
                 </a>
               )}
               {member.instagram && (
@@ -243,11 +240,6 @@ const About = () => {
                   className="hover:opacity-80 transition-opacity duration-200"
                   aria-label={`${member.name}'s Instagram`}
                 >
-                  <img 
-                    src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" 
-                    alt="Instagram" 
-                    className="h-6 w-6 object-contain"
-                  />
                 </a>
               )}
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle } from 'lucide-react';
+import { service1, service2, service3, service4, service5, service6, service7 } from '../assets/assets';
 
 const Services = () => {
   const { ref: heroRef, inView: heroInView } = useInView({
@@ -18,7 +19,7 @@ const Services = () => {
     {
       title: 'Logo Design',
       description: 'Create memorable brand identities that capture your essence and resonate with your target audience.',
-      image: 'images/social-media-logo-design.jpg',
+      image: service1,
       features: [
         'Custom logo concepts',
         'Brand guidelines',
@@ -30,7 +31,7 @@ const Services = () => {
     {
       title: 'Business Cards',
       description: 'Professional business card designs that make lasting first impressions and reflect your brand personality.',
-      image: 'images/photo.jpg',
+      image: service2,
       features: [
         'Premium design concepts',
         'Print-ready files',
@@ -42,7 +43,7 @@ const Services = () => {
     {
       title: 'Web Design & Development',
       description: 'Modern, responsive websites that engage users and drive business growth through stunning design and functionality.',
-      image: 'images/photo1.jpg',
+      image: service3,
       features: [
         'Responsive design',
         'Modern frameworks',
@@ -54,7 +55,7 @@ const Services = () => {
     {
       title: 'Posts & Banners',
       description: 'Eye-catching social media posts and banners that boost engagement and strengthen your brand presence.',
-      image: 'images/photo2.jpg',
+      image: service4,
       features: [
         'Social media templates',
         'Custom graphics',
@@ -66,7 +67,7 @@ const Services = () => {
     {
       title: 'Brochures',
       description: 'Professional brochures that effectively communicate your message and showcase your products or services.',
-      image: 'images/photo.jpg',
+      image: service5,
       features: [
         'Tri-fold & bi-fold designs',
         'Print-ready formats',
@@ -78,7 +79,7 @@ const Services = () => {
     {
       title: 'Posters',
       description: 'Eye-catching posters designed to captivate attention and communicate your message with bold creativity visual impact.',
-      image: 'images/photo3.jpg',
+      image: service6,
       features: [
         'Event posters',
         'Promotional materials',
@@ -90,7 +91,7 @@ const Services = () => {
     {
       title: 'Book Covers',
       description: 'Compelling book covers that attract readers and perfectly represent your story or content.',
-      image: 'images/photo4.jpg',
+      image: service7,
       features: [
         'Genre-appropriate designs',
         'Typography expertise',

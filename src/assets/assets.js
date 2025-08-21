@@ -1,2 +1,27 @@
-import logo from './Logo1.png';
-export{logo}
+import logo from './images/Logo1.png';
+import service1 from './images/service1.jpg';
+import service2 from './images/service2.jpg';
+import service3 from './images/service3.jpg';
+import service4 from './images/service4.jpg';
+import service5 from './images/service5.jpg';
+import service6 from './images/service6.jpg';
+import service7 from './images/service7.jpg';
+import Intern1 from './images/Intern1.jpg';
+import Intern2 from './images/Intern2.jpg';
+import Intern3 from './images/Intern3.jpg';
+import Intern4 from './images/Intern4.jpg';
+import Intern5 from './images/Intern5.jpg';
+import Intern6 from './images/Intern6.jpg';
+import Intern7 from './images/Intern7.jpg';
+import Intern8 from './images/Intern8.jpg';
+import Intern9 from './images/Intern9.jpg';
+import Intern10 from './images/Intern10.jpg';
+import Intern11 from './images/Intern11.jpg';
+import Intern12 from './images/Intern12.jpg';
+import about2 from './images/Co_Founder.jpeg';
+import about1 from './images/Founder.jpg';
+import Intern13 from './images/Mentorship.png';
+import Intern14 from './images/Real Projects.jpg';
+import Intern15 from './images/Flexible Schedule.png';
+import about3 from './images/Team.jpg';
+export{logo, service1, service2, service3, service4, service5, service6, service7, Intern1, Intern2, Intern3, Intern4, Intern5, Intern6, Intern7, Intern8, Intern9, Intern10, Intern11, Intern12, Intern13, Intern14, Intern15, about1, about2, about3}

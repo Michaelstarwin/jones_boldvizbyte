@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { ArrowRight, Mail, Phone } from 'lucide-react';
+import { Intern1, Intern2, Intern3, service1, service2, service3 } from '../assets/assets';
 
 const Home = () => {
   const { ref: heroRef, inView: heroInView } = useInView({
@@ -23,17 +24,17 @@ const Home = () => {
     {
       title: 'Logo Design',
       description: 'Create memorable brand identities that make lasting impressions and stand out in the market.',
-      image: 'images/social-media-logo-design.jpg',
+      image: service1,
     },
     {
       title: 'Business Cards',
       description: 'Professional business card designs that reflect your brand personality and leave lasting impressions.',
-      image: 'images/photo.jpg',
+      image: service2,
     },
     {
       title: 'Web Design & Development',
       description: 'Modern, responsive websites that engage users and drive business growth through stunning design.',
-      image: 'images/photo1.jpg',
+      image: service3,
     },
   ];
 
@@ -41,17 +42,17 @@ const Home = () => {
     {
       title: 'Web Development Intern',
       description: 'Learn modern web technologies and build real-world applications with our experienced team.',
-      image: 'images/pic.jpg',
+      image: Intern1,
     },
     {
       title: 'Graphic Designing Intern',
       description: 'Create stunning visual designs for various media including logos, brochures, and digital graphics using industry-standard tools.',
-      image: 'images/pic1.jpg',
+      image: Intern2,
     },
     {
       title: 'Digital Marketing Intern',
       description: 'Develop and execute marketing campaigns across various channels to promote brand awareness and growth.',
-      image: 'images/pic7.jpg',
+      image: Intern3,
     },
   ];
 
