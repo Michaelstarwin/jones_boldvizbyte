@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, Instagram, Linkedin, Youtube, Facebook } from 'lucide-react';
+import { logo } from '../assets/assets';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -14,7 +15,7 @@ const Footer = () => {
             <Link to="/" className="inline-flex items-center mb-4">
               {/* Logo Image - replace '/logo.png' with your actual logo path */}
               <img 
-                src="images/logo1.png" 
+                src={logo}
                 alt="BoldVizByte Logo"
                 className="h-10 w-10 mr-3" 
               />

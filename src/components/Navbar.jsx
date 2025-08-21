@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { logo } from '../assets/assets';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,11 +36,11 @@ const Navbar = () => {
           <Link to="/" className="flex items-center flex-shrink-0">
             {/* Logo Image - replace 'logo.png' with your actual logo path */}
             <img 
-              src="images/logo1.png" 
+              src={logo} 
               alt="BoldVizByte Logo"
               className="h-8 w-8 md:h-10 md:w-10 mr-2"
             />
-            <span className="text-2xl md:text-3xl font-bold gradient-text">
+            <span className="text-3xl md:text-3xl font-bold gradient-text">
               BoldVizByte
             </span>
           </Link>

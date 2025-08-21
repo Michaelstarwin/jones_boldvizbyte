@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const About = () => {
@@ -7,15 +7,39 @@ const About = () => {
     triggerOnce: true,
   });
 
-  const { ref: missionRef, inView: missionInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+  // Typewriter effect state and logic
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(100);
 
-  const { ref: teamRef, inView: teamInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+  const toType = ['BoldVizByte'];
+
+  useEffect(() => {
+    if (!heroInView) return;
+
+    const handleType = () => {
+      const i = loopNum % toType.length;
+      const fullText = toType[i];
+
+      setText(isDeleting
+        ? fullText.substring(0, text.length - 1)
+        : fullText.substring(0, text.length + 1)
+      );
+
+      setTypingSpeed(isDeleting ? 150 : 150);
+
+      if (!isDeleting && text === fullText) {
+        setTimeout(() => setIsDeleting(true), 1000);
+      } else if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+    };
+
+    const timer = setTimeout(handleType, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed, heroInView, toType]);
 
   const teamMembers = [
     {
@@ -37,16 +61,20 @@ const About = () => {
   ];
 
   return (
-    <div className="page-transition">
+    <div>
       {/* Hero Section */}
       <section 
         ref={heroRef}
         className="pt-24 pb-20 bg-gradient-to-br from-orange-100 via-neutral-primary to-teal-100"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center ${heroInView ? 'fade-in' : 'opacity-0'}`}>
+          <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">About BoldVizByte</span>
+              <span className="gradient-text">About</span>
+            </h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <span className="gradient-text typewriter">{text}</span>
+              <span className="cursor">|</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
               We're a passionate team of designers and developers dedicated to creating extraordinary digital experiences that make bold statements and drive meaningful results.
@@ -56,13 +84,10 @@ const About = () => {
       </section>
 
       {/* Mission & Values */}
-      <section 
-        ref={missionRef}
-        className="py-20 bg-white dark:bg-gray-900"
-      >
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className={`${missionInView ? 'fade-in' : 'opacity-0'}`}>
+            <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-8">
                 <span className="gradient-text">Our Mission</span>
               </h2>
@@ -76,9 +101,9 @@ const About = () => {
               </div>
             </div>
             
-            <div className={`${missionInView ? 'slide-in-right' : 'opacity-0'}`}>
+            <div>
               <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop" 
+                src="images/Team.jpg" 
                 alt="Team collaboration"
                 className="rounded-2xl shadow-lg w-full h-96 object-cover"
                 loading="lazy"
@@ -107,10 +132,9 @@ const About = () => {
             ].map((value, index) => (
               <div 
                 key={value.title}
-                className={`bg-white rounded-2xl p-8 shadow-lg card-hover text-center ${missionInView ? 'fade-in' : 'opacity-0'}`}
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className="bg-white rounded-2xl p-8 shadow-lg text-center"
               >
-                <div className="bg-gradient-to-br from-bright-blue to-aqua-green w-20 h-20 rounded-2xl mx-auto mb-6 flex items-center justify-center text-black font-bold text-3xl shadow-lg transform hover:scale-110 transition-transform duration-300">
+                <div className="bg-gradient-to-br from-bright-blue to-aqua-green w-20 h-20 rounded-2xl mx-auto mb-6 flex items-center justify-center text-black font-bold text-3xl shadow-lg">
                   {value.letter}
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-dark-navy">
@@ -126,85 +150,113 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section 
-        ref={teamRef}
-        className="py-20 bg-gray-50 dark:bg-gray-800"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-16 ${teamInView ? 'fade-in' : 'opacity-0'}`}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">Meet Our Team</span>
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Behind every great project is a team of passionate professionals who bring creativity, expertise, and dedication to everything we do.
-            </p>
-          </div>
+<section className="py-20 bg-gray-50 dark:bg-gray-800">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <span className="gradient-text">Meet Our Team</span>
+      </h2>
+      <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Behind every great project is a team of passionate professionals who bring creativity, expertise, and dedication to everything we do.
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            {teamMembers.map((member, index) => (
-              <div 
-                key={member.name}
-                className={`bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden card-hover ${
-                  teamInView ? 'fade-in' : 'opacity-0'
-                }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="aspect-square overflow-hidden">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-                    {member.name}
-                  </h3>
-                  <p className="text-bright-blue font-semibold mb-3">
-                    {member.role}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-                    {member.bio}
-                  </p>
-                  <div className="flex justify-center space-x-4">
-                    {member.linkedin && (
-                      <a 
-                        href={member.linkedin} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="hover:opacity-80 transition-opacity duration-200"
-                        aria-label={`${member.name}'s LinkedIn`}
-                      >
-                        <img 
-                          src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" 
-                          alt="LinkedIn" 
-                          className="h-6 w-6 object-contain"
-                        />
-                      </a>
-                    )}
-                    {member.instagram && (
-                      <a 
-                        href={member.instagram} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="hover:opacity-80 transition-opacity duration-200"
-                        aria-label={`${member.name}'s Instagram`}
-                      >
-                        <img 
-                          src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" 
-                          alt="Instagram" 
-                          className="h-6 w-6 object-contain"
-                        />
-                      </a>
-                    )}
-                  </div>
-                </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+      {teamMembers.map((member) => (
+        <div 
+          key={member.name}
+          className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+        >
+          <div className="aspect-square overflow-hidden relative">
+            <img 
+              src={member.image} 
+              alt={member.name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
+              <div className="flex space-x-4 translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                {member.linkedin && (
+                  <a 
+                    href={member.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-white p-2 rounded-full hover:bg-blue-100 transition-colors duration-300 transform hover:scale-110"
+                    aria-label={`${member.name}'s LinkedIn`}
+                  >
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" 
+                      alt="LinkedIn" 
+                      className="h-5 w-5 object-contain"
+                    />
+                  </a>
+                )}
+                {member.instagram && (
+                  <a 
+                    href={member.instagram} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-white p-2 rounded-full hover:bg-pink-100 transition-colors duration-300 transform hover:scale-110"
+                    aria-label={`${member.name}'s Instagram`}
+                  >
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" 
+                      alt="Instagram" 
+                      className="h-5 w-5 object-contain"
+                    />
+                  </a>
+                )}
               </div>
-            ))}
+            </div>
+          </div>
+          <div className="p-6 text-center">
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-bright-blue transition-colors duration-300">
+              {member.name}
+            </h3>
+            <p className="text-bright-blue font-semibold mb-3">
+              {member.role}
+            </p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+              {member.bio}
+            </p>
+            <div className="flex justify-center space-x-4 md:hidden">
+              {member.linkedin && (
+                <a 
+                  href={member.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity duration-200"
+                  aria-label={`${member.name}'s LinkedIn`}
+                >
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" 
+                    alt="LinkedIn" 
+                    className="h-6 w-6 object-contain"
+                  />
+                </a>
+              )}
+              {member.instagram && (
+                <a 
+                  href={member.instagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity duration-200"
+                  aria-label={`${member.name}'s Instagram`}
+                >
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" 
+                    alt="Instagram" 
+                    className="h-6 w-6 object-contain"
+                  />
+                </a>
+              )}
+            </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* CTA Section */}
       <section className="py-20 gradient-overlay text-white">

@@ -30,7 +30,7 @@ const Services = () => {
     {
       title: 'Business Cards',
       description: 'Professional business card designs that make lasting first impressions and reflect your brand personality.',
-      image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=400&fit=crop',
+      image: 'images/photo.jpg',
       features: [
         'Premium design concepts',
         'Print-ready files',
@@ -42,7 +42,7 @@ const Services = () => {
     {
       title: 'Web Design & Development',
       description: 'Modern, responsive websites that engage users and drive business growth through stunning design and functionality.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+      image: 'images/photo1.jpg',
       features: [
         'Responsive design',
         'Modern frameworks',
@@ -54,7 +54,7 @@ const Services = () => {
     {
       title: 'Posts & Banners',
       description: 'Eye-catching social media posts and banners that boost engagement and strengthen your brand presence.',
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
+      image: 'images/photo2.jpg',
       features: [
         'Social media templates',
         'Custom graphics',
@@ -66,7 +66,7 @@ const Services = () => {
     {
       title: 'Brochures',
       description: 'Professional brochures that effectively communicate your message and showcase your products or services.',
-      image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=400&fit=crop',
+      image: 'images/photo.jpg',
       features: [
         'Tri-fold & bi-fold designs',
         'Print-ready formats',
@@ -77,8 +77,8 @@ const Services = () => {
     },
     {
       title: 'Posters',
-      description: 'Striking posters that grab attention and deliver your message with maximum visual impact.',
-      image: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&h=400&fit=crop',
+      description: 'Eye-catching posters designed to captivate attention and communicate your message with bold creativity visual impact.',
+      image: 'images/photo3.jpg',
       features: [
         'Event posters',
         'Promotional materials',
@@ -90,7 +90,7 @@ const Services = () => {
     {
       title: 'Book Covers',
       description: 'Compelling book covers that attract readers and perfectly represent your story or content.',
-      image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=400&fit=crop',
+      image: 'images/photo4.jpg',
       features: [
         'Genre-appropriate designs',
         'Typography expertise',

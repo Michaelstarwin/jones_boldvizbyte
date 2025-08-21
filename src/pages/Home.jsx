@@ -28,30 +28,30 @@ const Home = () => {
     {
       title: 'Business Cards',
       description: 'Professional business card designs that reflect your brand personality and leave lasting impressions.',
-      image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500&h=300&fit=crop',
+      image: 'images/photo.jpg',
     },
     {
       title: 'Web Design & Development',
       description: 'Modern, responsive websites that engage users and drive business growth through stunning design.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop',
+      image: 'images/photo1.jpg',
     },
   ];
 
   const internships = [
     {
-      title: 'Web Developer Intern',
+      title: 'Web Development Intern',
       description: 'Learn modern web technologies and build real-world applications with our experienced team.',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=300&fit=crop',
+      image: 'images/pic.jpg',
     },
     {
-      title: 'UI/UX Designer Intern',
-      description: 'Design beautiful, user-centered interfaces and gain hands-on experience in digital design.',
-      image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=500&h=300&fit=crop',
+      title: 'Graphic Designing Intern',
+      description: 'Create stunning visual designs for various media including logos, brochures, and digital graphics using industry-standard tools.',
+      image: 'images/pic1.jpg',
     },
     {
       title: 'Digital Marketing Intern',
-      description: 'Master digital marketing strategies and help brands grow their online presence effectively.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop',
+      description: 'Develop and execute marketing campaigns across various channels to promote brand awareness and growth.',
+      image: 'images/pic7.jpg',
     },
   ];
 
@@ -109,7 +109,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 ${servicesInView ? 'fade-in' : 'opacity-0'}`}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="text-deep-blue">Our Services</span>
+              <span className="gradient-text">Our Services</span>
             </h2>
             <p className="text-xl text-dark-navy max-w-3xl mx-auto">
               We offer comprehensive design and development solutions to help your business stand out in the digital landscape.
@@ -161,7 +161,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 ${internshipInView ? 'fade-in' : 'opacity-0'}`}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="text-deep-blue">Internship Program</span>
+              <span className="gradient-text">Internship Program</span>
             </h2>
             <p className="text-xl text-dark-navy max-w-3xl mx-auto">
               Launch your career with hands-on experience in design, development, and digital marketing.

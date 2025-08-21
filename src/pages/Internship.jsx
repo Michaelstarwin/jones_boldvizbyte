@@ -25,7 +25,7 @@ const Internship = () => {
     {
       title: 'Web Development Intern',
       description: 'Learn modern web technologies including React, Node.js, and database management while building real-world applications.',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop',
+      image: 'images/pic.jpg',
       duration: '3-6 months',
       skills: ['React','Html','CSS', 'JavaScript', 'Node.js', 'MongoDB', 'Git'],
       requirements: 'Basic knowledge of HTML, CSS, and JavaScript',
@@ -33,7 +33,7 @@ const Internship = () => {
     {
       title: 'Graphic Designing Intern',
       description: 'Create stunning visual designs for various media including logos, brochures, and digital graphics using industry-standard tools.',
-      image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&h=400&fit=crop',
+      image: 'images/pic1.jpg',
       duration: '3-6 months',
       skills: ['Adobe Creative Suite', 'Figma', 'Canva', 'Typography', 'Brand Design'],
       requirements: 'Portfolio showcasing design projects and creativity',
@@ -41,7 +41,7 @@ const Internship = () => {
     {
       title: 'Outreach Intern',
       description: 'Build relationships with potential clients and partners through strategic outreach and communication campaigns.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+      image: 'images/pic2.jpg',
       duration: '3-6 months',
       skills: ['Email Marketing', 'Lead Generation', 'CRM Tools', 'Communication', 'Research'],
       requirements: 'Excellent communication skills and networking abilities',
@@ -49,7 +49,7 @@ const Internship = () => {
     {
       title: 'Business Analyst Intern',
       description: 'Analyze business processes, identify opportunities for improvement, and support data-driven decision making.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+      image: 'images/pic3.jpg',
       duration: '3-6 months',
       skills: ['Data Analysis', 'Excel', 'Business Intelligence', 'Process Mapping', 'Reporting'],
       requirements: 'Analytical mindset and basic knowledge of business concepts',
@@ -57,7 +57,7 @@ const Internship = () => {
     {
       title: 'HR Intern',
       description: 'Support human resources activities including recruitment, employee engagement, and administrative tasks.',
-      image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop',
+      image: 'images/pic4.jpg',
       duration: '3-6 months',
       skills: ['Recruitment', 'Employee Relations', 'HR Software', 'Communication', 'Documentation'],
       requirements: 'Interest in human resources and strong interpersonal skills',
@@ -65,7 +65,7 @@ const Internship = () => {
     {
       title: 'Accountant Intern',
       description: 'Assist with financial record keeping, bookkeeping, and basic accounting tasks using modern accounting software.',
-      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop',
+      image: 'images/pic5.jpg',
       duration: '3-6 months',
       skills: ['QuickBooks', 'Excel', 'Financial Analysis', 'Bookkeeping', 'Tax Preparation'],
       requirements: 'Basic accounting knowledge and attention to detail',
@@ -73,15 +73,15 @@ const Internship = () => {
     {
       title: 'Legal Advisor Intern',
       description: 'Support legal research, document preparation, and compliance activities under professional supervision.',
-      image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop',
+      image: 'images/pic6.jpg',
       duration: '3-6 months',
       skills: ['Legal Research', 'Document Drafting', 'Compliance', 'Contract Review', 'Legal Writing'],
       requirements: 'Law student or legal studies background preferred',
     },
     {
-      title: 'Marketing Intern',
+      title: 'Digital Marketing Intern',
       description: 'Develop and execute marketing campaigns across various channels to promote brand awareness and growth.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+      image: 'images/pic7.jpg',
       duration: '3-6 months',
       skills: ['Digital Marketing', 'Content Strategy', 'SEO', 'Analytics', 'Campaign Management'],
       requirements: 'Creative thinking and interest in marketing trends',
@@ -89,7 +89,7 @@ const Internship = () => {
     {
       title: 'Social Media Manager Intern',
       description: 'Manage social media accounts, create engaging content, and analyze performance metrics across platforms.',
-      image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=400&fit=crop',
+      image: 'images/pic8.jpg',
       duration: '3-6 months',
       skills: ['Social Media Platforms', 'Content Creation', 'Analytics', 'Community Management', 'Scheduling Tools'],
       requirements: 'Strong social media presence and creative content skills',
@@ -97,7 +97,7 @@ const Internship = () => {
     {
       title: 'Content Writer Intern',
       description: 'Create compelling written content for websites, blogs, marketing materials, and social media platforms.',
-      image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&h=400&fit=crop',
+      image: 'images/pic9.jpg',
       duration: '3-6 months',
       skills: ['Creative Writing', 'SEO Writing', 'Research', 'Editing', 'Content Strategy'],
       requirements: 'Excellent writing skills and creativity',
@@ -105,7 +105,7 @@ const Internship = () => {
     {
       title: 'Video Editing Intern',
       description: 'Edit and produce engaging video content for marketing campaigns, social media, and promotional materials.',
-      image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop',
+      image: 'images/pic10.jpg',
       duration: '3-6 months',
       skills: ['Adobe Premiere Pro', 'After Effects', 'Final Cut Pro', 'Motion Graphics', 'Color Correction'],
       requirements: 'Basic video editing experience and creative vision',
@@ -113,7 +113,7 @@ const Internship = () => {
     {
       title: 'Sales Intern',
       description: 'Support sales activities including lead qualification, client communication, and sales process optimization.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+      image: 'images/pic11.jpg',
       duration: '3-6 months',
       skills: ['Sales Techniques', 'CRM Software', 'Lead Generation', 'Client Relations', 'Presentation Skills'],
       requirements: 'Strong communication skills and goal-oriented mindset',
@@ -133,7 +133,7 @@ const Internship = () => {
       description: 'Contribute to actual client projects and see your work make a real impact.',
     },
     {
-      image: 'https://cdn-icons-png.flaticon.com/512/2997/2997297.png',
+      image: 'images/Flexible Schedule.png',
       title: 'Flexible Schedule',
       description: 'Remote-friendly internships with flexible hours to accommodate your studies.',
     },
@@ -306,7 +306,7 @@ const Internship = () => {
             
             <div className={`${benefitsInView ? 'slide-in-right' : 'opacity-0'}`}>
               <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop" 
+                src="images/Team.jpg" 
                 alt="Team collaboration"
                 className="rounded-2xl shadow-lg w-full h-80 object-cover"
                 loading="lazy"

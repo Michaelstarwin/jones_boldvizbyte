@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { ArrowRight, Upload, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowRight, Upload, CheckCircle, AlertCircle, Link as LinkIcon } from 'lucide-react';
 
 const ApplicationForm = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ const ApplicationForm = () => {
     graduationYear: '',
     cgpaPercentage: '',
     internshipRole: '',
-    resume: null,
+    resumeUrl: '',
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,44 +50,67 @@ const ApplicationForm = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData(prev => ({
-      ...prev,
-      resume: file,
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
     
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // In a real application, you would submit the form data here
-      // For now, we'll just show a success message
-      setSubmitStatus('success');
-      
-      // Reset form
-      setFormData({
-        fullName: '',
-        phone: '',
-        email: '',
-        address: '',
-        dateOfBirth: '',
-        gender: '',
-        linkedinGithub: '',
-        collegeName: '',
-        degree: '',
-        graduationYear: '',
-        cgpaPercentage: '',
-        internshipRole: '',
-        resume: null,
+      // Web3Forms integration
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "c6372463-6bd2-4542-a40b-7cc0c16244d2",
+          subject: `Internship Application: ${formData.internshipRole}`,
+          from_name: "BoldVizByte Internship Application",
+          fullName: formData.fullName,
+          phone: formData.phone,
+          email: formData.email,
+          address: formData.address,
+          dateOfBirth: formData.dateOfBirth,
+          gender: formData.gender,
+          linkedinGithub: formData.linkedinGithub,
+          collegeName: formData.collegeName,
+          degree: formData.degree,
+          graduationYear: formData.graduationYear,
+          cgpaPercentage: formData.cgpaPercentage,
+          internshipRole: formData.internshipRole,
+          resumeUrl: formData.resumeUrl,
+        }),
       });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        
+        // Reset form
+        setFormData({
+          fullName: '',
+          phone: '',
+          email: '',
+          address: '',
+          dateOfBirth: '',
+          gender: '',
+          linkedinGithub: '',
+          collegeName: '',
+          degree: '',
+          graduationYear: '',
+          cgpaPercentage: '',
+          internshipRole: '',
+          resumeUrl: '',
+        });
+      } else {
+        console.error("Form submission error:", result);
+        setSubmitStatus('error');
+      }
       
     } catch (error) {
+      console.error("Form submission error:", error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -101,7 +124,7 @@ const ApplicationForm = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center fade-in">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">Application Form</span>
+              <span className="gradient-text">Internship Application</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Take the first step towards launching your career. Fill out the form below to apply for our internship program.
@@ -124,9 +147,6 @@ const ApplicationForm = () => {
                   <h3 className="text-lg font-semibold text-green-800">
                     Application Submitted Successfully!
                   </h3>
-                  <p className="text-green-600">
-                    Thank you for your interest in joining our team. We'll review your application and get back to you within 3-5 business days.
-                  </p>
                 </div>
               </div>
             </div>
@@ -152,6 +172,8 @@ const ApplicationForm = () => {
             formInView ? 'fade-in' : 'opacity-0'
           }`}>
             <form onSubmit={handleSubmit} className="space-y-8">
+              <input type="hidden" name="access_key" value="c6372463-6bd2-4542-a40b-7cc0c16244d2" />
+              
               {/* Personal Information */}
               <div>
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">
@@ -262,7 +284,7 @@ const ApplicationForm = () => {
                       LinkedIn/GitHub
                     </label>
                     <input
-                      type="text"
+                      type="url"
                       id="linkedinGithub"
                       name="linkedinGithub"
                       value={formData.linkedinGithub}
@@ -375,41 +397,33 @@ const ApplicationForm = () => {
                 </div>
               </div>
 
-              {/* Resume Upload */}
+              {/* Resume URL */}
               <div>
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">
-                  Resume Upload
+                  Resume/CV Link
                 </h2>
                 <div>
-                  <label htmlFor="resume" className="block text-sm font-medium text-gray-700 mb-2">
-                    Resume Upload *
+                  <label htmlFor="resumeUrl" className="block text-sm font-medium text-gray-700 mb-2">
+                    Resume/CV URL *
                   </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-bright-blue transition-colors duration-200">
-                    <Upload className="mx-auto text-gray-400 mb-4" size={48} />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <LinkIcon className="h-5 w-5 text-gray-400" />
+                    </div>
                     <input
-                      type="file"
-                      id="resume"
-                      name="resume"
-                      onChange={handleFileChange}
-                      accept=".pdf,.doc,.docx"
+                      type="url"
+                      id="resumeUrl"
+                      name="resumeUrl"
+                      value={formData.resumeUrl}
+                      onChange={handleInputChange}
                       required
-                      className="hidden"
+                      className="w-full pl-10 px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-bright-blue focus:border-transparent transition-colors duration-200"
+                      placeholder="https://drive.google.com/your-resume-link"
                     />
-                    <label
-                      htmlFor="resume"
-                      className="cursor-pointer text-bright-blue hover:text-deep-blue font-medium"
-                    >
-                      Click to upload your resume
-                    </label>
-                    <p className="text-sm text-gray-500 mt-2">
-                      PDF, DOC, DOCX up to 10MB
-                    </p>
-                    {formData.resume && (
-                      <p className="text-sm text-aqua-green mt-2">
-                        ✓ {formData.resume.name}
-                      </p>
-                    )}
                   </div>
+                  <p className="text-sm text-gray-500 mt-2">
+                    Please upload your resume to Google Drive, Dropbox, or similar service and share the link
+                  </p>
                 </div>
               </div>
 
@@ -428,6 +442,7 @@ const ApplicationForm = () => {
                   ) : (
                     <>
                       <span>Submit Application</span>
+                      <ArrowRight size={20} />
                     </>
                   )}
                 </button>
