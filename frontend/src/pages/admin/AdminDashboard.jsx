@@ -408,22 +408,22 @@ const AdminDashboard = () => {
                 {/* Top Controls Row */}
                 <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center mb-8 gap-4">
                     {/* Tabs (Left) */}
-                    <div className="glass-card p-1 rounded-full flex border border-dark-border gap-1 overflow-x-auto w-full lg:w-auto scrollbar-hide">
+                    <div className="glass-card p-1.5 rounded-full flex border border-dark-border gap-1 overflow-x-auto w-full lg:w-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                         <button
                             onClick={() => setActiveTab('leads')}
-                            className={`px-4 md:px-6 py-2 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'leads' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 md:px-6 py-2.5 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'leads' ? 'bg-neon-blue text-black shadow-md' : 'text-gray-400 hover:text-white'}`}
                         >
                             LEADS
                         </button>
                         <button
                             onClick={() => setActiveTab('services')}
-                            className={`px-4 md:px-6 py-2 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'services' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 md:px-6 py-2.5 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'services' ? 'bg-neon-blue text-black shadow-md' : 'text-gray-400 hover:text-white'}`}
                         >
                             SERVICES 
                         </button>
                         <button
                             onClick={() => setActiveTab('careers')}
-                            className={`px-4 md:px-6 py-2 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'careers' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 md:px-6 py-2.5 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'careers' ? 'bg-neon-blue text-black shadow-md' : 'text-gray-400 hover:text-white'}`}
                         >
                             CAREERS 
                         </button>
