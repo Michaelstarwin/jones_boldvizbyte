@@ -10,7 +10,7 @@ const AdminDashboard = () => {
     // ---- AUTH STATE ----
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAuthLoading, setIsAuthLoading] = useState(true);
-    const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+    const [loginForm, setLoginForm] = useState({ username: '', password: '' });
     const [loginError, setLoginError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [failedAttempts, setFailedAttempts] = useState(() => parseInt(localStorage.getItem('boldviz_admin_failed_attempts') || '0'));
@@ -308,14 +308,14 @@ const AdminDashboard = () => {
                         ) : null}
 
                         <div className="space-y-2">
-                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider">Email Address</label>
+                            <label className="text-xs text-gray-400 font-bold uppercase tracking-wider">Admin Username</label>
                             <input
-                                type="email"
+                                type="text"
                                 required
-                                value={loginForm.email}
-                                onChange={e => setLoginForm({ ...loginForm, email: e.target.value })}
+                                value={loginForm.username}
+                                onChange={e => setLoginForm({ ...loginForm, username: e.target.value })}
                                 className="w-full bg-dark-bg/80 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-neon-blue focus:shadow-[0_0_15px_rgba(0,243,255,0.2)] transition-all"
-                                placeholder="admin@example.com"
+                                placeholder="BoldVizByte"
                             />
                         </div>
 

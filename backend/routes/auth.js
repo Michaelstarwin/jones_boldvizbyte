@@ -5,15 +5,15 @@ import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 // Static Admin Credentials for testing (in prod, use DB mapping)
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@boldvizbyte.com';
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'BoldVizByte';
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || bcrypt.hashSync('BoldVizByte@2025', 10);
 const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_that_should_be_in_env';
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     try {
-        if (email !== ADMIN_EMAIL) {
+        if (username !== ADMIN_USERNAME) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
@@ -25,12 +25,12 @@ router.post('/login', async (req, res) => {
 
         // Create JWT
         const token = jwt.sign(
-            { id: 'admin1', email },
+            { id: 'admin1', username },
             JWT_SECRET,
             { expiresIn: '24h' }
         );
 
-        res.json({ token, user: { email } });
+        res.json({ token, user: { username } });
 
     } catch (error) {
         console.error(error);
