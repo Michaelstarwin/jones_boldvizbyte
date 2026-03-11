@@ -406,43 +406,43 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* Top Controls Row */}
-                <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+                <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center mb-8 gap-4">
                     {/* Tabs (Left) */}
-                    <div className="glass-card p-1 rounded-full flex border border-dark-border gap-1 overflow-x-auto w-full md:w-auto">
+                    <div className="glass-card p-1 rounded-full flex border border-dark-border gap-1 overflow-x-auto w-full lg:w-auto scrollbar-hide">
                         <button
                             onClick={() => setActiveTab('leads')}
-                            className={`px-6 py-2 rounded-full font-bold font-orbitron text-sm transition-all whitespace-nowrap flex-1 md:flex-none ${activeTab === 'leads' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 md:px-6 py-2 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'leads' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
                         >
                             LEADS
                         </button>
                         <button
                             onClick={() => setActiveTab('services')}
-                            className={`px-6 py-2 rounded-full font-bold font-orbitron text-sm transition-all whitespace-nowrap flex-1 md:flex-none ${activeTab === 'services' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 md:px-6 py-2 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'services' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
                         >
-                            SERVICES CMS
+                            SERVICES 
                         </button>
                         <button
                             onClick={() => setActiveTab('careers')}
-                            className={`px-6 py-2 rounded-full font-bold font-orbitron text-sm transition-all whitespace-nowrap flex-1 md:flex-none ${activeTab === 'careers' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 md:px-6 py-2 rounded-full font-bold font-orbitron text-xs md:text-sm transition-all whitespace-nowrap flex-1 lg:flex-none ${activeTab === 'careers' ? 'bg-neon-blue text-black' : 'text-gray-400 hover:text-white'}`}
                         >
-                            CAREERS CMS
+                            CAREERS 
                         </button>
                     </div>
 
                     {/* Total Leads & Logout (Right) */}
-                    <div className="flex items-center gap-4">
-                        <div className="glass-card px-6 py-4 rounded-xl neon-border inline-flex items-center justify-center min-w-[140px] shadow-[0_0_20px_rgba(0,243,255,0.15)]">
+                    <div className="flex items-center gap-4 w-full lg:w-auto">
+                        <div className="glass-card px-4 md:px-6 py-3 md:py-4 rounded-xl neon-border flex-1 lg:flex-none inline-flex items-center justify-center min-w-[120px] shadow-[0_0_20px_rgba(0,243,255,0.15)]">
                             <div className="text-center w-full">
-                                <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-2">Total Leads</p>
-                                <p className="text-4xl font-bold text-neon-blue leading-none">{leads.length}</p>
+                                <p className="text-[10px] md:text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1 md:mb-2">Total Leads</p>
+                                <p className="text-3xl md:text-4xl font-bold text-neon-blue leading-none">{leads.length}</p>
                             </div>
                         </div>
                         <button
                             onClick={handleLogout}
-                            className="glass-card p-4 rounded-xl hover:bg-red-500/10 hover:border-red-500/50 text-gray-400 hover:text-red-400 transition-all border border-dark-border group h-full flex items-center justify-center"
+                            className="glass-card p-3 md:p-4 rounded-xl hover:bg-red-500/10 hover:border-red-500/50 text-gray-400 hover:text-red-400 transition-all border border-dark-border group flex-shrink-0 flex items-center justify-center h-full"
                             title="Log Out"
                         >
-                            <LogOut size={24} className="group-hover:scale-110 transition-transform" />
+                            <LogOut size={20} className="md:w-6 md:h-6 group-hover:scale-110 transition-transform" />
                         </button>
                     </div>
                 </div>
@@ -451,13 +451,13 @@ const AdminDashboard = () => {
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}>
 
                         {/* Controls */}
-                        <div className="glass-card rounded-xl p-4 mb-6 flex flex-wrap justify-between items-center gap-4 border border-dark-border shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-                            <div className="flex flex-wrap gap-2">
+                        <div className="glass-card rounded-xl p-3 md:p-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-dark-border shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+                            <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                                 {formTypes.map(type => (
                                     <button
                                         key={type}
                                         onClick={() => setFilter(type)}
-                                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === type
+                                        className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex-1 sm:flex-none text-center ${filter === type
                                             ? 'bg-neon-blue text-black shadow-[0_0_15px_rgba(0,243,255,0.4)]'
                                             : 'bg-dark-elem border border-dark-border text-gray-300 hover:text-white hover:border-gray-500'
                                             }`}
@@ -469,7 +469,7 @@ const AdminDashboard = () => {
 
                             <button
                                 onClick={clearLeads}
-                                className="px-4 py-2 bg-red-500/10 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-500 hover:text-white transition-colors duration-300 flex items-center gap-2 text-sm font-semibold opacity-50 cursor-not-allowed"
+                                className="w-full sm:w-auto px-4 py-2 bg-red-500/10 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-500 hover:text-white transition-colors duration-300 flex items-center justify-center gap-2 text-xs md:text-sm font-semibold opacity-50 cursor-not-allowed hidden sm:flex"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 Batch Delete Disabled
@@ -479,85 +479,148 @@ const AdminDashboard = () => {
                         {/* Data Table */}
                         <div className="glass-card rounded-xl overflow-hidden border border-dark-border shadow-[0_4px_30px_rgba(0,0,0,0.1)] mb-12">
                             <div className="overflow-x-auto">
-                                <table className="w-full text-left border-collapse min-w-[800px]">
-                                    <thead>
-                                        <tr className="bg-dark-elem border-b border-dark-border text-xs uppercase tracking-wider text-gray-400">
-                                            <th className="px-6 py-4 font-semibold">Date</th>
-                                            <th className="px-6 py-4 font-semibold">Type</th>
-                                            <th className="px-6 py-4 font-semibold">Name</th>
-                                            <th className="px-6 py-4 font-semibold">Contact</th>
-                                            <th className="px-6 py-4 font-semibold">Details</th>
-                                            <th className="px-6 py-4 font-semibold text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div className="block lg:hidden">
                                         <AnimatePresence>
                                             {filteredLeads.length === 0 ? (
-                                                <motion.tr
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    exit={{ opacity: 0 }}
-                                                >
-                                                    <td colSpan="6" className="px-6 py-12 text-center text-gray-500">
-                                                        No leads found.
-                                                    </td>
-                                                </motion.tr>
+                                                <div className="px-6 py-12 text-center text-gray-500 bg-dark-elem/20">
+                                                    No leads found.
+                                                </div>
                                             ) : (
                                                 filteredLeads.map((lead, idx) => (
-                                                    <motion.tr
+                                                    <motion.div
                                                         key={lead.id || idx}
                                                         initial={{ opacity: 0, y: 10 }}
                                                         animate={{ opacity: 1, y: 0 }}
-                                                        exit={{ opacity: 0, x: -10 }}
+                                                        exit={{ opacity: 0, scale: 0.95 }}
                                                         transition={{ delay: idx * 0.05 }}
-                                                        className="border-b border-dark-border/50 hover:bg-dark-elem/50 transition-colors"
+                                                        className="border-b border-dark-border/50 p-4 space-y-3 bg-dark-elem/10 hover:bg-dark-elem/30 transition-colors"
                                                     >
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                                                            {new Date(lead.timestamp).toLocaleDateString()}<br />
-                                                            <span className="text-xs opacity-50">{new Date(lead.timestamp).toLocaleTimeString()}</span>
-                                                        </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
-                                                            <span className={`px-2 py-1 rounded-md text-xs font-semibold ${lead.formType === 'Job Application' ? 'bg-neon-purple/20 text-neon-purple border border-neon-purple/30' :
-                                                                lead.formType === 'Service Application' ? 'bg-neon-blue/20 text-neon-blue border border-neon-blue/30' :
-                                                                    lead.formType === 'ChatBot Lead' ? 'bg-neon-pink/20 text-neon-pink border border-neon-pink/30' :
-                                                                        'bg-gray-700 text-gray-300'
-                                                                }`}>
-                                                                {lead.formType}
-                                                            </span>
-                                                        </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
-                                                            {lead.name}
-                                                        </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                                            <div>{lead.email}</div>
-                                                            <div className="text-neon-blue font-medium">{lead.phone}</div>
-                                                        </td>
-                                                        <td className="px-6 py-4 text-sm text-gray-400 max-w-[200px]">
-                                                            <div className="truncate font-semibold text-gray-300">{lead.serviceOrRole}</div>
-                                                            <div className="truncate text-xs">{lead.message || 'No additional message'}</div>
-                                                        </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-center">
-                                                            <div className="flex justify-center gap-2">
-                                                                <button
-                                                                    onClick={() => setSelectedLead(lead)}
-                                                                    className="px-4 py-2 bg-neon-blue/10 border border-neon-blue/50 text-neon-blue hover:bg-neon-blue hover:text-black rounded-lg transition-all text-sm font-semibold shadow-[0_0_10px_rgba(0,243,255,0.2)] cursor-target"
-                                                                >
-                                                                    View
-                                                                </button>
-                                                                <button
-                                                                    onClick={() => deleteLead(lead.id)}
-                                                                    className="px-4 py-2 bg-red-500/10 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-all text-sm font-semibold shadow-[0_0_10px_rgba(239,68,68,0.2)] cursor-target"
-                                                                >
-                                                                    Delete
-                                                                </button>
+                                                        <div className="flex justify-between items-start">
+                                                            <div>
+                                                                <h3 className="font-bold text-white text-lg">{lead.name}</h3>
+                                                                <span className={`inline-block mt-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${lead.formType === 'Job Application' ? 'bg-neon-purple/20 text-neon-purple border border-neon-purple/30' :
+                                                                    lead.formType === 'Service Application' ? 'bg-neon-blue/20 text-neon-blue border border-neon-blue/30' :
+                                                                        lead.formType === 'ChatBot Lead' ? 'bg-neon-pink/20 text-neon-pink border border-neon-pink/30' :
+                                                                            'bg-gray-700 text-gray-300'
+                                                                    }`}>
+                                                                    {lead.formType}
+                                                                </span>
                                                             </div>
-                                                        </td>
-                                                    </motion.tr>
+                                                            <div className="text-right">
+                                                                <div className="text-xs text-gray-400">{new Date(lead.timestamp).toLocaleDateString()}</div>
+                                                                <div className="text-[10px] text-gray-500">{new Date(lead.timestamp).toLocaleTimeString()}</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="text-sm">
+                                                            <div className="text-gray-300 break-all">{lead.email}</div>
+                                                            <div className="text-neon-blue font-medium">{lead.phone}</div>
+                                                        </div>
+
+                                                        <div className="text-xs text-gray-400 bg-dark-bg/50 p-2 rounded-lg border border-white/5">
+                                                            <div className="font-semibold text-gray-300 truncate">{lead.serviceOrRole}</div>
+                                                            <div className="truncate opacity-75 mt-0.5">{lead.message || 'No additional message'}</div>
+                                                        </div>
+
+                                                        <div className="flex gap-2 pt-2">
+                                                            <button
+                                                                onClick={() => setSelectedLead(lead)}
+                                                                className="flex-1 py-2 bg-neon-blue/10 border border-neon-blue/50 text-neon-blue hover:bg-neon-blue hover:text-black rounded-lg transition-all text-sm font-semibold cursor-target flex items-center justify-center gap-2"
+                                                            >
+                                                                <Eye size={16} /> View
+                                                            </button>
+                                                            <button
+                                                                onClick={() => deleteLead(lead.id)}
+                                                                className="flex-none px-4 py-2 bg-red-500/10 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-all text-sm font-semibold cursor-target flex items-center justify-center"
+                                                                title="Delete"
+                                                            >
+                                                                <Trash2 size={16} />
+                                                            </button>
+                                                        </div>
+                                                    </motion.div>
                                                 ))
                                             )}
                                         </AnimatePresence>
-                                    </tbody>
-                                </table>
+                                    </div>
+                                    <table className="hidden lg:table w-full text-left border-collapse min-w-[800px]">
+                                        <thead>
+                                            <tr className="bg-dark-elem border-b border-dark-border text-xs uppercase tracking-wider text-gray-400">
+                                                <th className="px-6 py-4 font-semibold">Date</th>
+                                                <th className="px-6 py-4 font-semibold">Type</th>
+                                                <th className="px-6 py-4 font-semibold">Name</th>
+                                                <th className="px-6 py-4 font-semibold">Contact</th>
+                                                <th className="px-6 py-4 font-semibold">Details</th>
+                                                <th className="px-6 py-4 font-semibold text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <AnimatePresence>
+                                                {filteredLeads.length === 0 ? (
+                                                    <motion.tr
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        exit={{ opacity: 0 }}
+                                                    >
+                                                        <td colSpan="6" className="px-6 py-12 text-center text-gray-500">
+                                                            No leads found.
+                                                        </td>
+                                                    </motion.tr>
+                                                ) : (
+                                                    filteredLeads.map((lead, idx) => (
+                                                        <motion.tr
+                                                            key={lead.id || idx}
+                                                            initial={{ opacity: 0, y: 10 }}
+                                                            animate={{ opacity: 1, y: 0 }}
+                                                            exit={{ opacity: 0, x: -10 }}
+                                                            transition={{ delay: idx * 0.05 }}
+                                                            className="border-b border-dark-border/50 hover:bg-dark-elem/50 transition-colors"
+                                                        >
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                                                                {new Date(lead.timestamp).toLocaleDateString()}<br />
+                                                                <span className="text-xs opacity-50">{new Date(lead.timestamp).toLocaleTimeString()}</span>
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                                <span className={`px-2 py-1 rounded-md text-xs font-semibold ${lead.formType === 'Job Application' ? 'bg-neon-purple/20 text-neon-purple border border-neon-purple/30' :
+                                                                    lead.formType === 'Service Application' ? 'bg-neon-blue/20 text-neon-blue border border-neon-blue/30' :
+                                                                        lead.formType === 'ChatBot Lead' ? 'bg-neon-pink/20 text-neon-pink border border-neon-pink/30' :
+                                                                            'bg-gray-700 text-gray-300'
+                                                                    }`}>
+                                                                    {lead.formType}
+                                                                </span>
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
+                                                                {lead.name}
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                                                <div>{lead.email}</div>
+                                                                <div className="text-neon-blue font-medium">{lead.phone}</div>
+                                                            </td>
+                                                            <td className="px-6 py-4 text-sm text-gray-400 max-w-[200px]">
+                                                                <div className="truncate font-semibold text-gray-300">{lead.serviceOrRole}</div>
+                                                                <div className="truncate text-xs">{lead.message || 'No additional message'}</div>
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-center">
+                                                                <div className="flex justify-center gap-2">
+                                                                    <button
+                                                                        onClick={() => setSelectedLead(lead)}
+                                                                        className="px-4 py-2 bg-neon-blue/10 border border-neon-blue/50 text-neon-blue hover:bg-neon-blue hover:text-black rounded-lg transition-all text-sm font-semibold shadow-[0_0_10px_rgba(0,243,255,0.2)] cursor-target"
+                                                                    >
+                                                                        View
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() => deleteLead(lead.id)}
+                                                                        className="px-4 py-2 bg-red-500/10 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-all text-sm font-semibold shadow-[0_0_10px_rgba(239,68,68,0.2)] cursor-target"
+                                                                    >
+                                                                        Delete
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </motion.tr>
+                                                    ))
+                                                )}
+                                            </AnimatePresence>
+                                        </tbody>
+                                    </table>
                             </div>
                         </div>
                     </motion.div>
