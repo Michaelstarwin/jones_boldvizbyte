@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldAlert, Trash2, Eye, EyeOff, Calendar, User, Phone, Briefcase, Plus, GripHorizontal, FileText, Download, LogOut } from 'lucide-react';
 import { io } from 'socket.io-client';
+import Modal from '../../components/ui/Modal';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://jones-boldvizbyte.onrender.com/api';
 let socket;
@@ -21,6 +22,24 @@ const AdminDashboard = () => {
     const [leads, setLeads] = useState([]);
     const [filter, setFilter] = useState('All');
     const [selectedLead, setSelectedLead] = useState(null);
+
+    // ---- MODAL STATE ----
+    const [confirmModal, setConfirmModal] = useState({ isOpen: false, title: '', message: '', action: null });
+
+    const openConfirmModal = (title, message, action) => {
+        setConfirmModal({ isOpen: true, title, message, action });
+    };
+
+    const closeConfirmModal = () => {
+        setConfirmModal({ isOpen: false, title: '', message: '', action: null });
+    };
+
+    const handleConfirmAction = async () => {
+        if (confirmModal.action) {
+            await confirmModal.action();
+        }
+        closeConfirmModal();
+    };
 
     // ---- TABS STATE ----
     const [activeTab, setActiveTab] = useState('leads'); // 'leads', 'services', 'careers'
@@ -120,13 +139,13 @@ const AdminDashboard = () => {
     }, [lockoutUntil]);
 
     const clearLeads = async () => {
-        if (window.confirm("Are you sure you want to delete ALL leads? This cannot be undone.")) {
+        openConfirmModal("Delete All Leads", "Are you sure you want to delete ALL leads? This cannot be undone.", () => {
             alert("For security, batch deleting is disabled in real-time mode. Please delete leads individually.");
-        }
+        });
     };
 
     const deleteLead = async (idToDelete) => {
-        if (window.confirm("Are you sure you want to delete this specific lead?")) {
+        openConfirmModal("Delete Lead", "Are you sure you want to delete this specific lead? This action cannot be undone.", async () => {
             try {
                 await fetch(`${API_URL}/leads/${idToDelete}`, {
                     method: 'DELETE',
@@ -136,7 +155,7 @@ const AdminDashboard = () => {
                 console.error("Error deleting lead:", error);
                 alert("Failed to delete lead. Check console.");
             }
-        }
+        });
     };
 
     const formTypes = ['All', ...new Set(leads.map(lead => lead.formType))];
@@ -163,7 +182,7 @@ const AdminDashboard = () => {
     };
 
     const handleDeleteService = async (idToDelete) => {
-        if (window.confirm("Delete this custom service?")) {
+        openConfirmModal("Delete Custom Service", "Are you sure you want to delete this custom service? It will no longer appear on the website.", async () => {
             try {
                 await fetch(`${API_URL}/services/${idToDelete}`, {
                     method: 'DELETE',
@@ -172,7 +191,7 @@ const AdminDashboard = () => {
             } catch (error) {
                 console.error("Error deleting service:", error);
             }
-        }
+        });
     };
 
     // ---- CMS METHODS: CAREERS ----
@@ -195,7 +214,7 @@ const AdminDashboard = () => {
     };
 
     const handleDeleteCareer = async (idToDelete) => {
-        if (window.confirm("Delete this custom career role?")) {
+        openConfirmModal("Delete Career Role", "Are you sure you want to delete this open position? It will no longer appear on the careers page.", async () => {
             try {
                 await fetch(`${API_URL}/careers/${idToDelete}`, {
                     method: 'DELETE',
@@ -204,7 +223,7 @@ const AdminDashboard = () => {
             } catch (error) {
                 console.error("Error deleting career:", error);
             }
-        }
+        });
     };
 
     // ---- AUTH LOGIC ----
@@ -848,6 +867,31 @@ const AdminDashboard = () => {
                         </div>
                     )}
                 </AnimatePresence>
+
+                {/* Custom Confirmation Modal */}
+                <Modal
+                    isOpen={confirmModal.isOpen}
+                    onClose={closeConfirmModal}
+                    title={confirmModal.title}
+                >
+                    <div className="space-y-6">
+                        <p className="text-gray-300 font-outfit text-lg">{confirmModal.message}</p>
+                        <div className="flex gap-4 justify-end mt-8 border-t border-white/10 pt-6">
+                            <button
+                                onClick={closeConfirmModal}
+                                className="px-6 py-2.5 rounded-xl font-bold font-orbitron border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                            >
+                                CANCEL
+                            </button>
+                            <button
+                                onClick={handleConfirmAction}
+                                className="px-6 py-2.5 bg-red-500/10 border border-red-500/50 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-colors font-bold font-orbitron shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+                            >
+                                DELETE
+                            </button>
+                        </div>
+                    </div>
+                </Modal>
 
             </div>
         </div>

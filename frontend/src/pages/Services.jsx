@@ -61,7 +61,7 @@ const Services = () => {
             <ServicesLocation />
             <ServicesFinalCTA />
             <EnquirySection />
-            <StickyServiceCTA onApply={() => handleApply('')} />
+            <StickyServiceCTA onApply={() => handleApply('General Inquiry')} />
 
             <Modal
                 isOpen={!!selectedService}
