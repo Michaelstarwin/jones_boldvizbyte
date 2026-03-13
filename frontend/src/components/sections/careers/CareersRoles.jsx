@@ -17,22 +17,33 @@ const roles = [
     { id: 12, title: "Content Writer Intern", type: "Internship", loc: "Remote", desc: "Write blogs, copy, and scripts." }
 ];
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://jones-boldvizbyte.onrender.com/api';
+
 const CareersRoles = ({ onApply }) => {
     const [selectedRole, setSelectedRole] = useState(null);
     const [allRoles, setAllRoles] = useState(roles);
 
     useEffect(() => {
-        const storedCareers = localStorage.getItem('boldviz_custom_careers');
-        if (storedCareers) {
-            const customCareers = JSON.parse(storedCareers).map(career => ({
-                id: career.id,
-                title: career.title,
-                type: career.type,
-                loc: career.loc,
-                desc: career.desc
-            }));
-            setAllRoles([...customCareers, ...roles]);
-        }
+        const fetchCustomCareers = async () => {
+             try {
+                 const res = await fetch(`${API_URL}/careers`);
+                 if (res.ok) {
+                     const data = await res.json();
+                     const customCareers = data.map(career => ({
+                         id: career.id,
+                         title: career.title,
+                         type: career.type,
+                         loc: career.loc,
+                         desc: career.desc
+                     }));
+                     setAllRoles([...customCareers, ...roles]);
+                 }
+             } catch (error) {
+                 console.error("Failed to fetch custom careers:", error);
+             }
+        };
+
+        fetchCustomCareers();
     }, []);
 
     return (

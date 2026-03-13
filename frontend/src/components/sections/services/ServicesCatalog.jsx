@@ -78,22 +78,33 @@ const detailedServices = [
     }
 ];
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://jones-boldvizbyte.onrender.com/api';
+
 const ServicesCatalog = ({ onApply }) => {
     const [allServices, setAllServices] = useState(detailedServices);
 
     useEffect(() => {
-        const storedServices = localStorage.getItem('boldviz_custom_services');
-        if (storedServices) {
-            const customServices = JSON.parse(storedServices).map(service => ({
-                id: service.id,
-                title: service.title,
-                desc: service.desc,
-                offer: ["Custom Strategy", "Dedicated Support", "Priority Delivery"], // Default points
-                benefits: ["Exclusive Service", "Tailored Results"], // Default points
-                bestFor: service.bestFor || "All Businesses"
-            }));
-            setAllServices([...customServices, ...detailedServices]);
-        }
+        const fetchCustomServices = async () => {
+            try {
+                const res = await fetch(`${API_URL}/services`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const customServices = data.map(service => ({
+                        id: service.id,
+                        title: service.title,
+                        desc: service.desc,
+                        offer: ["Custom Strategy", "Dedicated Support", "Priority Delivery"],
+                        benefits: ["Exclusive Service", "Tailored Results"],
+                        bestFor: service.bestFor || "All Businesses"
+                    }));
+                    setAllServices([...customServices, ...detailedServices]);
+                }
+            } catch (error) {
+                console.error("Failed to fetch custom services:", error);
+            }
+        };
+
+        fetchCustomServices();
     }, []);
 
     return (
