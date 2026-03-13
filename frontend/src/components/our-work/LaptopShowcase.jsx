@@ -173,7 +173,7 @@ const LaptopShowcase = ({ externalActiveProject }) => {
                 layout={!isMobile}
                 onClick={handleLaptopClick}
                 className={`relative z-10 flex flex-col items-center cursor-pointer transition-transform duration-500 ease-out origin-center
-            transform scale-[0.30] sm:scale-[0.60] md:scale-[0.85] xl:scale-[1.0] -my-24 md:my-0
+            transform scale-[0.45] sm:scale-[0.70] md:scale-[0.85] xl:scale-[1.0] -my-12 md:my-0
         `}
             >
                 {/* 
@@ -181,7 +181,7 @@ const LaptopShowcase = ({ externalActiveProject }) => {
             LID ASSMEBLY (Screen Container)
             ------------------------------------------
         */}
-                <div className="w-[640px] h-[400px] bg-[#0d0d0d] rounded-[24px] p-[12px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] relative border border-[#333] flex flex-col">
+                <div className="w-[640px] h-[400px] bg-[#d1d5db] rounded-[24px] p-[12px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] relative border border-[#9ca3af] flex flex-col">
 
                     {/* Outer Bezel Gloss */}
                     <div className="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/10 pointer-events-none z-50"></div>
@@ -197,26 +197,25 @@ const LaptopShowcase = ({ externalActiveProject }) => {
                         <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent z-40 pointer-events-none opacity-20"></div>
 
                         {/* Content */}
-                        {/* Content */}
                         <div className="w-full h-full bg-white relative overflow-hidden flex flex-col z-20">
                             {/* Browser Chrome */}
-                            <div className="h-8 bg-[#1e1e1e] flex items-center px-4 space-x-2 flex-shrink-0 z-30 relative select-none">
-                                <div className="flex space-x-1.5 opacity-50 hover:opacity-100 transition-opacity">
-                                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
-                                    <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></div>
-                                    <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]"></div>
+                            <div className="h-8 bg-[#f3f4f6] flex items-center px-4 space-x-2 flex-shrink-0 z-30 relative select-none border-b border-gray-200">
+                                <div className="flex space-x-1.5 opacity-80 hover:opacity-100 transition-opacity">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] border border-[#e0443e]"></div>
+                                    <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e] border border-[#d89f24]"></div>
+                                    <div className="w-2.5 h-2.5 rounded-full bg-[#28c840] border border-[#1aab29]"></div>
                                 </div>
                                 <div className="flex-1 flex justify-center">
                                     <a
                                         href={currentProject.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="bg-[#2a2a2a] h-5 rounded-md px-3 w-3/5 flex items-center justify-between text-[10px] text-gray-500 font-medium font-mono hover:bg-[#333] hover:text-gray-300 transition-all cursor-pointer group/url no-underline"
+                                        className="bg-white border border-gray-200 h-5 rounded-md px-3 w-3/5 flex items-center justify-between text-[10px] text-gray-600 font-medium font-mono hover:bg-gray-50 hover:text-gray-800 transition-all cursor-pointer group/url no-underline shadow-sm"
                                         title="Open in new tab"
                                     >
-                                        <Lock size={8} className="text-gray-600" />
+                                        <Lock size={8} className="text-gray-400" />
                                         <span className="truncate mx-2">{currentProject.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
-                                        <ExternalLink size={8} className="text-gray-500 opacity-0 group-hover/url:opacity-100 transition-opacity" />
+                                        <ExternalLink size={8} className="text-gray-400 opacity-0 group-hover/url:opacity-100 transition-opacity" />
                                     </a>
                                 </div>
                             </div>
@@ -237,10 +236,10 @@ const LaptopShowcase = ({ externalActiveProject }) => {
 
                 {/* BASE ASSEMBLY */}
                 <div className="w-full flex justify-center -mt-[2px] z-10 relative">
-                    <div className="w-[500px] h-[16px] bg-[#1a1a1a] rounded-b-[12px] border-b border-[#333] shadow-inner"></div>
+                    <div className="w-[500px] h-[16px] bg-[#9ca3af] rounded-b-[12px] border-b border-[#6b7280] shadow-inner"></div>
                 </div>
-                <div className="relative w-[700px] h-[18px] bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] rounded-b-[20px] -mt-[14px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] border-t border-black/50 flex justify-center items-center">
-                    <div className="w-[80px] h-[4px] bg-[#111] rounded-full opacity-50 -mt-2"></div>
+                <div className="relative w-[700px] h-[18px] bg-gradient-to-b from-[#d1d5db] to-[#9ca3af] rounded-b-[20px] -mt-[14px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] border-t border-[#f3f4f6]/50 flex justify-center items-center">
+                    <div className="w-[80px] h-[4px] bg-[#6b7280] rounded-full opacity-50 -mt-2"></div>
                 </div>
                 <div className="w-[680px] h-6 bg-gradient-to-b from-gray-800 to-transparent opacity-20 blur-xl -mt-1 mx-auto" />
             </motion.div>
