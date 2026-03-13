@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ThreeBackground from '../animations/ThreeBackground';
+import MagicRings from '../ui/MagicRings';
 import { useTypewriter } from '../../hooks/useTypewriter';
 import { Link } from 'react-router-dom';
 
@@ -9,8 +10,37 @@ const Hero = () => {
 
     return (
         <section className="relative h-screen flex items-center justify-center overflow-hidden bg-dark-bg">
-            {/* 3D Background */}
+            {/* 3D Background - Keep existing, but add MagicRings on top as an overlay */}
             <ThreeBackground />
+            
+            {/* Magic Rings Animation Overlay */}
+            <div className="absolute inset-0 pointer-events-none z-[5] opacity-60 flex items-center justify-center">
+                <div style={{ width: '100%', height: '100%', position: 'absolute' }}>
+                    <MagicRings
+                        color="#00f3ff"       // matching neon-blue
+                        colorTwo="#a855f7"    // matching neon-purple
+                        ringCount={8}
+                        speed={0.8}
+                        attenuation={10}
+                        lineThickness={2}
+                        baseRadius={0.3}
+                        radiusStep={0.15}
+                        scaleRate={0.08}
+                        opacity={0.8}
+                        blur={0}
+                        noiseAmount={0.1}
+                        rotation={0}
+                        ringGap={1.5}
+                        fadeIn={0.7}
+                        fadeOut={0.5}
+                        followMouse={true}
+                        mouseInfluence={0.1}
+                        hoverScale={1.1}
+                        parallax={0.05}
+                        clickBurst={false}
+                    />
+                </div>
+            </div>
 
             {/* Content Overlay */}
             <div className="relative z-10 container mx-auto px-6 text-center">
