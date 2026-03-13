@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Bot, User, Phone, Briefcase } from 'lucide-react';
+import { Bot, X } from 'lucide-react';
 import { submitLead } from '../../services/leadService';
+import ChatMessage from './ChatMessage';
+import ChatInput from './ChatInput';
 
 const ChatBot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +16,6 @@ const ChatBot = () => {
             options: ["Our Services", "Pricing", "SEO & Ranking", "Contact Support"]
         }
     ]);
-    const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [leadStep, setLeadStep] = useState(0); // 0: Idle, 1: Name, 2: Mobile, 3: Business, 4: Service
     const [leadData, setLeadData] = useState({ name: '', mobile: '', business: '', service: '' });
@@ -28,13 +29,10 @@ const ChatBot = () => {
         scrollToBottom();
     }, [messages, isOpen]);
 
-    const handleSend = () => {
-        if (!input.trim()) return;
-
-        const userMsg = { id: Date.now(), text: input, sender: 'user' };
+    const handleSend = (userText) => {
+        const userMsg = { id: Date.now(), text: userText, sender: 'user' };
         setMessages(prev => [...prev, userMsg]);
-        setInput('');
-        processResponse(input);
+        processResponse(userText);
     };
 
     const handleOptionClick = (option) => {
@@ -61,16 +59,13 @@ const ChatBot = () => {
             return;
         }
 
-        // Add user message to history visually (handled in handleSend, but keeping state structure logic here)
-        const userMsg = { role: 'user', content: userInput };
+        const userMsgObj = { role: 'user', content: userInput };
         
-        // Prepare openAI format messages for the backend HF parser
-        const apiMessages = messages.filter(m => m.sender !== 'bot' || !m.type).map(m => ({
+        // Prepare history logic matching backend schema
+        const historyArray = messages.filter(m => m.sender !== 'bot' || !m.type).map(m => ({
             role: m.sender === 'user' ? 'user' : 'assistant',
             content: m.text
         }));
-        
-        apiMessages.push(userMsg);
 
         setIsTyping(true);
 
@@ -79,7 +74,10 @@ const ChatBot = () => {
             const res = await fetch(`${API_URL}/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: apiMessages })
+                body: JSON.stringify({ 
+                    message: userInput, 
+                    history: historyArray 
+                })
             });
 
             if (!res.ok) throw new Error("Failed to fetch from Backend AI Route");
@@ -180,35 +178,14 @@ const ChatBot = () => {
                         {/* Messages Area */}
                         <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
                             {messages.map((msg) => (
-                                <motion.div
-                                    key={msg.id}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                                >
-                                    <div className={`max-w-[80%] p-3 rounded-2xl text-sm font-outfit leading-relaxed whitespace-pre-line ${msg.sender === 'user'
-                                        ? 'bg-neon-blue text-black rounded-tr-none'
-                                        : 'bg-white/10 text-white rounded-tl-none'
-                                        }`}>
-                                        {msg.text}
-                                    </div>
-                                </motion.div>
+                                <ChatMessage 
+                                    key={msg.id} 
+                                    message={{
+                                        ...msg,
+                                        onOptionClick: handleOptionClick
+                                    }} 
+                                />
                             ))}
-
-                            {/* Options Buttons */}
-                            {messages[messages.length - 1]?.sender === 'bot' && messages[messages.length - 1].options && (
-                                <div className="flex flex-wrap gap-2 mt-2">
-                                    {messages[messages.length - 1].options.map((option, idx) => (
-                                        <button
-                                            key={idx}
-                                            onClick={() => handleOptionClick(option)}
-                                            className="px-3 py-1.5 text-xs font-bold border border-neon-blue/50 text-neon-blue rounded-full hover:bg-neon-blue hover:text-black transition-colors"
-                                        >
-                                            {option}
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
 
                             {isTyping && (
                                 <div className="flex justify-start">
@@ -223,26 +200,7 @@ const ChatBot = () => {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 border-t border-white/10 bg-black/20">
-                            <form
-                                onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-                                className="flex space-x-2"
-                            >
-                                <input
-                                    type="text"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Type a message..."
-                                    className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 text-sm text-white outline-none focus:border-neon-blue transition-colors"
-                                />
-                                <button
-                                    type="submit"
-                                    className="p-2 bg-neon-blue rounded-full text-black hover:scale-105 transition-transform"
-                                >
-                                    <Send size={18} />
-                                </button>
-                            </form>
-                        </div>
+                        <ChatInput onSendMessage={handleSend} />
                     </motion.div>
                 )}
             </AnimatePresence>

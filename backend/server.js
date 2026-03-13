@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import rateLimit from 'express-rate-limit';
 
 // Routes
 import authRoutes from './routes/auth.js';
@@ -76,7 +77,17 @@ app.get('/api', (req, res) => {
     res.json({ message: "BoldVizByte API is running" });
 });
 
+// API Rate Limiting Setup
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per `window`
+    message: { error: "Too many requests from this IP, please try again later." },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 // API Routes
+app.use('/api', apiLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadRoutes(io));
 app.use('/api/services', serviceRoutes(io));

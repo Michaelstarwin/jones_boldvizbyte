@@ -36,10 +36,10 @@ const formatMistralPrompt = (messages) => {
 
 export const handleChat = async (req, res) => {
     try {
-        const { messages } = req.body; // Expects an array of messages
+        const { message, history } = req.body; 
 
-        if (!messages || !Array.isArray(messages)) {
-            return res.status(400).json({ error: "Invalid messages format." });
+        if (!message || !Array.isArray(history)) {
+            return res.status(400).json({ error: "Invalid format. Expecting { message, history }." });
         }
 
         const hfApiKey = process.env.HUGGINGFACE_API_KEY;
@@ -53,7 +53,8 @@ export const handleChat = async (req, res) => {
              });
         }
 
-        const promptText = formatMistralPrompt(messages);
+        const formatHistory = [...history, { role: 'user', content: message }];
+        const promptText = formatMistralPrompt(formatHistory);
 
         const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2", {
             method: "POST",
