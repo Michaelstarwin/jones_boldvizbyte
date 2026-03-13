@@ -165,14 +165,21 @@ const ChatBot = () => {
                         className="fixed bottom-24 right-6 z-50 w-[90vw] md:w-[350px] h-[500px] bg-dark-bg border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl"
                     >
                         {/* Header */}
-                        <div className="p-4 bg-neon-blue/10 border-b border-white/10 flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden border border-neon-blue">
+                        <div className="p-4 bg-neon-blue/10 border-b border-white/10 flex items-center space-x-3 relative">
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden border border-neon-blue min-w-[40px]">
                                 <img src="/Logo.png" alt="BoldVizByte Logo" className="w-full h-full object-cover p-1" />
                             </div>
-                            <div>
+                            <div className="flex-1">
                                 <h3 className="font-orbitron font-bold text-white text-sm">BoldVizByte AI</h3>
                                 <p className="text-xs text-green-400 flex items-center"><span className="w-2 h-2 rounded-full bg-green-400 mr-1 animate-pulse"></span>Online</p>
                             </div>
+                            <button 
+                                onClick={() => setIsOpen(false)}
+                                className="md:hidden text-white/70 hover:text-white transition-colors p-2 absolute right-2 top-4"
+                                aria-label="Close Chat"
+                            >
+                                <X size={20} />
+                            </button>
                         </div>
 
                         {/* Messages Area */}

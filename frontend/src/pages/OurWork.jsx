@@ -4,6 +4,7 @@ import MobileShowcase from '../components/our-work/MobileShowcase';
 import LaptopShowcase from '../components/our-work/LaptopShowcase';
 import ImpactProcess from '../components/our-work/ImpactProcess';
 import EnquirySection from '../components/sections/EnquirySection';
+import ProjectCards from '../components/our-work/ProjectCards';
 import { Code, PenTool, BarChart3, Globe, Smartphone, Users, MapPin, CheckCircle2, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 const OurWork = () => {
@@ -58,6 +59,9 @@ const OurWork = () => {
                     "We don't showcase everything. Only work we're proud of."
                 </p>
             </section>
+
+            {/* 2.5 LIVE PROJECTS CARDS */}
+            <ProjectCards />
 
             {/* 3. PROCESS & IMPACT (NEW REDESIGN) */}
             <ImpactProcess />
