@@ -152,7 +152,7 @@ const ChatBot = () => {
                 className="fixed bottom-24 md:bottom-6 right-6 z-50 w-14 h-14 bg-neon-blue rounded-full shadow-[0_0_20px_rgba(0,243,255,0.5)] flex items-center justify-center text-black hover:scale-110 transition-transform"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {isOpen ? <X size={28} /> : <MessageSquare size={28} />}
+                {isOpen ? <X size={28} /> : <Bot size={28} />}
             </motion.button>
 
             {/* Chat Window */}
@@ -166,8 +166,8 @@ const ChatBot = () => {
                     >
                         {/* Header */}
                         <div className="p-4 bg-neon-blue/10 border-b border-white/10 flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-neon-blue flex items-center justify-center">
-                                <Bot size={24} className="text-black" />
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden border border-neon-blue">
+                                <img src="/Logo.png" alt="BoldVizByte Logo" className="w-full h-full object-cover p-1" />
                             </div>
                             <div>
                                 <h3 className="font-orbitron font-bold text-white text-sm">BoldVizByte AI</h3>
