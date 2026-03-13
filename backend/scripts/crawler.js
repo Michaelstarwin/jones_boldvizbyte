@@ -7,36 +7,29 @@ import EmbeddingGenerator from '../utils/embeddings.js';
 
 dotenv.config();
 
-// The public pages we want the AI to know about
-const URLS_TO_CRAWL = [
-    'https://boldvizbyte.com/',
-    'https://boldvizbyte.com/services',
-    'https://boldvizbyte.com/about',
-    // Add additional URLs here if necessary
+// Because the site is a React SPA, `axios.get` only returns `<div id="root"></div>`.
+// For the most accurate RAG injection, we define the core knowledge chunks manually or read them from source.
+const COMPANY_KNOWLEDGE = [
+    {
+        url: "https://boldvizbyte.com/",
+        text: "BoldVizByte is a premium digital agency based in Kovilpatti and Thoothukudi, India. We empower brands to succeed online with high-performance websites and cutting-edge digital marketing."
+    },
+    {
+        url: "https://boldvizbyte.com/services",
+        text: "Our core services include: 1. Digital Marketing: Comprehensive strategies to grow your audience. 2. SEO & Ranking: We help businesses rank on the first page of Google to increase organic traffic. 3. Web Development: Custom, fast, and responsive websites. 4. Branding & Design: Logo creation and brand identity. 5. Video Editing: Professional video production for social media. 6. IT Solutions: Custom software and technical support."
+    },
+    {
+        url: "https://boldvizbyte.com/about",
+        text: "The Founder of BoldVizByte is committed to helping local and global businesses scale dynamically. You can contact us directly at +91 7708994392 or email founder.boldvizbyte@gmail.com for a free consultation or quote."
+    },
+    {
+         url: "https://boldvizbyte.com/pricing",
+         text: "Pricing at BoldVizByte is custom-tailored to each project's specific scope and requirements. We offer free audits and quotes. Please provide your contact details and our experts will reach out with a detailed proposal."
+    }
 ];
 
-// Split text into roughly 500 token chunks (using simple word splitting as an approximation)
-const CHUNK_SIZE = 400; 
-
-const crawlPage = async (url) => {
-    try {
-        console.log(`Crawling: ${url}...`);
-        const { data } = await axios.get(url);
-        const $ = cheerio.load(data);
-        
-        // Remove scripts, styles, and empty elements
-        $('script, style, noscript, nav, footer, header').remove();
-
-        // Extract raw text
-        let text = $('body').text();
-        
-        // Clean up text (remove excessive newlines, tabs)
-        text = text.replace(/\s+/g, ' ').trim();
-        return { url, text };
-    } catch (error) {
-        console.error(`Failed to crawl ${url}:`, error.message);
-        return { url, text: '' };
-    }
+const getKnowledgeChunks = () => {
+    return COMPANY_KNOWLEDGE;
 };
 
 const chunkText = (text, url) => {
@@ -65,17 +58,7 @@ const runCrawlerAndEmbedder = async () => {
     const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
     const index = pc.index(process.env.PINECONE_INDEX);
 
-    let allChunks = [];
-
-    // 1. Crawl Sites
-    for (const url of URLS_TO_CRAWL) {
-        const result = await crawlPage(url);
-        if (result.text) {
-            const chunks = chunkText(result.text, result.url);
-            allChunks = [...allChunks, ...chunks];
-            console.log(`Extracted ${chunks.length} chunks from ${url}`);
-        }
-    }
+    const allChunks = getKnowledgeChunks();
 
     console.log(`Total chunks across all pages: ${allChunks.length}`);
     console.log("Generating Embeddings. This may take a minute as it downloads the model on first run...");
@@ -86,11 +69,18 @@ const runCrawlerAndEmbedder = async () => {
     for (let i = 0; i < allChunks.length; i++) {
         const chunk = allChunks[i];
         try {
-            const embedding = await EmbeddingGenerator.embed(chunk.text);
+            const embeddingRaw = await EmbeddingGenerator.embed(chunk.text);
             
+            // Xenova might return a Float32Array or Proxy Array. Ensure pure Float array for Pinecone:
+            const embeddingArray = Array.from(Object.values(embeddingRaw));
+            
+            if (embeddingArray.length !== 384) {
+                 throw new Error(`Invalid Dimension: expected 384, got ${embeddingArray.length}`);
+            }
+
             vectorsToUpsert.push({
                 id: `chunk-${uuidv4()}`,
-                values: embedding,
+                values: embeddingArray,
                 metadata: {
                     text: chunk.text,
                     sourceUrl: chunk.url
