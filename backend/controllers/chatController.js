@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Pinecone } from '@pinecone-database/pinecone';
+import { HfInference } from '@huggingface/inference';
 import EmbeddingGenerator from '../utils/embeddings.js';
 
 dotenv.config();
@@ -91,37 +92,21 @@ export const handleChat = async (req, res) => {
 
         // --- 2. RAG GENERATION STEP ---
         const formatHistory = [...history, { role: 'user', content: message }];
-        const promptText = formatMistralPrompt(formatHistory, retrievedContext);
-
-        const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${hfApiKey}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                inputs: promptText,
-                parameters: {
-                    max_new_tokens: 250,
-                    temperature: 0.7,
-                    return_full_text: false // We only want the AI's generated reply, not the whole prompt back
-                }
-            })
-        });
-
-        if (!response.ok) {
-            console.error("HF Error:", await response.text());
-            throw new Error("Failed to fetch from Hugging Face AI.");
-        }
-
-        const data = await response.json();
+        const hf = new HfInference(hfApiKey);
         
-        // HF typically returns an array with { generated_text: "..." }
+        const response = await hf.chatCompletion({
+            model: "Qwen/Qwen2.5-72B-Instruct",
+            messages: [
+                { role: "system", content: SYSTEM_PROMPT + "\n\n=== RELEVANT CONTEXT ===\n" + retrievedContext },
+                ...formatHistory
+            ],
+            max_tokens: 250,
+            temperature: 0.7
+        }, { provider: "hf-inference" });
+
         let aiText = "I encountered an error interpreting the AI response.";
-        if (Array.isArray(data) && data.length > 0 && data[0].generated_text) {
-            aiText = data[0].generated_text.trim();
-            // Optional: Strip out trailing </s> tags if the model includes them
-            aiText = aiText.replace(/<\/s>|\[\/INST\]/g, '').trim(); 
+        if (response.choices && response.choices.length > 0) {
+            aiText = response.choices[0].message.content.trim();
         }
 
         res.json({ message: { role: 'assistant', content: aiText } });
