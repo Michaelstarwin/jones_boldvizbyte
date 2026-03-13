@@ -26,7 +26,18 @@ class EmbeddingGenerator {
             const result = await embedder(text, { pooling: 'mean', normalize: true });
             
             // Xenova returns a Tensor object. We need a flat float array for Pinecone (expected rank 1).
-            return Array.from(result.data);
+            const rawData = result.data;
+            if (!rawData) {
+                throw new Error("Xenova returned an empty or invalid Tensor.");
+            }
+
+            // Force it into a standard JS array of numbers
+            const cleanArray = [];
+            for (let i = 0; i < rawData.length; i++) {
+                cleanArray.push(Number(rawData[i]));
+            }
+            
+            return cleanArray;
         } catch (error) {
             console.error("Embedding generation failed:", error);
             throw error;

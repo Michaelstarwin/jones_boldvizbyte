@@ -69,18 +69,15 @@ const runCrawlerAndEmbedder = async () => {
     for (let i = 0; i < allChunks.length; i++) {
         const chunk = allChunks[i];
         try {
-            const embeddingRaw = await EmbeddingGenerator.embed(chunk.text);
+            const embedding = await EmbeddingGenerator.embed(chunk.text);
             
-            // Xenova might return a Float32Array or Proxy Array. Ensure pure Float array for Pinecone:
-            const embeddingArray = Array.from(Object.values(embeddingRaw));
-            
-            if (embeddingArray.length !== 384) {
-                 throw new Error(`Invalid Dimension: expected 384, got ${embeddingArray.length}`);
+            if (embedding.length !== 384) {
+                 throw new Error(`Invalid Dimension: expected 384, got ${embedding.length}`);
             }
 
             vectorsToUpsert.push({
                 id: `chunk-${uuidv4()}`,
-                values: embeddingArray,
+                values: embedding,
                 metadata: {
                     text: chunk.text,
                     sourceUrl: chunk.url
@@ -95,7 +92,7 @@ const runCrawlerAndEmbedder = async () => {
     // 3. Upsert to Vector DB
     console.log(`Pushing ${vectorsToUpsert.length} vectors to Pinecone Index: ${process.env.PINECONE_INDEX}...`);
     try {
-        await index.upsert(vectorsToUpsert);
+        await index.upsert({ records: vectorsToUpsert });
         console.log("✅ Successfully saved vectors to Pinecone!");
     } catch (e) {
          console.error("Failed to upload to Pinecone:", e.message);
