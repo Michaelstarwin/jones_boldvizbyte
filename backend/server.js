@@ -9,6 +9,7 @@ import authRoutes from './routes/auth.js';
 import leadRoutes from './routes/leads.js';
 import serviceRoutes from './routes/services.js';
 import careerRoutes from './routes/careers.js';
+import chatRoutes from './routes/chat.js';
 
 dotenv.config();
 
@@ -80,6 +81,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadRoutes(io));
 app.use('/api/services', serviceRoutes(io));
 app.use('/api/careers', careerRoutes(io));
+app.use('/api/chat', chatRoutes);
 
 // Handle undefined routes
 app.use((req, res) => {

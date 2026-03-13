@@ -54,51 +54,57 @@ const ChatBot = () => {
         }, 1000);
     };
 
-    const processResponse = (userInput) => {
-        const lowerInput = userInput.toLowerCase();
-
-        // Lead Collection Flow
+    const processResponse = async (userInput) => {
+        // Collect lead details if the user triggers certain keywords or if already requested
         if (leadStep > 0) {
             handleLeadCollection(userInput);
             return;
         }
 
-        // Generic Responses
-        if (lowerInput.includes('services') || lowerInput.includes('what do you do')) {
-            addBotMessage(
-                "We provide top-notch digital solutions! Here’s what we offer:\n\n✅ Digital Marketing\n✅ SEO (Ranking on Google)\n✅ Web Development\n✅ Branding & Design\n✅ Video Editing\n✅ IT Solutions\n\nWe are experts in Kovilpatti & Thoothukudi! Which one are you interested in?",
-                "options",
-                ["Web Development", "Digital Marketing", "SEO", "Branding"]
-            );
-        } else if (lowerInput.includes('seo') || lowerInput.includes('rank') || lowerInput.includes('google')) {
-            addBotMessage(
-                "Great question! 🚀 We use advanced SEO strategies to rank websites on Page 1 of Google. \n\nWe specialize in Local SEO for businesses in Kovilpatti & Thoothukudi to dominate local searches. Want a free SEO audit?",
-                "options",
-                ["Yes, Audit my site", "How much does it cost?"]
-            );
-        } else if (lowerInput.includes('price') || lowerInput.includes('cost') || lowerInput.includes('how much')) {
-            addBotMessage(
-                "Our pricing depends on your specific business goals and requirements. We believe in providing value! 💎\n\nLet's discuss your needs. Can I have your mobile number for a quick free consultation?",
-                "options",
-                ["Yes, sure", "View Contact Page"]
-            );
-            setLeadStep(1); // Start lead collection if they agree
-        } else if (lowerInput.includes('contact') || lowerInput.includes('support') || lowerInput.includes('call')) {
-            addBotMessage(
-                "You can reach us directly at +91 7708994392 or email founder.boldvizbyte@gmail.com. \n\nOr shall we call you back?",
-                "options",
-                ["Call me back", "I will call you"]
-            );
-            if (lowerInput.includes('call me')) setLeadStep(1);
-        } else if (lowerInput.includes('yes') || lowerInput.includes('sure')) {
-            addBotMessage("Awesome! Let's get started. May I know your Name?");
-            setLeadStep(1);
-        } else {
-            addBotMessage(
-                "I'm here to help you grow your business! 🚀 \n\nWould you like to get a free consultation or see our services?",
-                "options",
-                ["Free Consultation", "Our Services"]
-            );
+        // Add user message to history
+        const userMsg = { role: 'user', content: userInput };
+        
+        // Prepare openAI format messages
+        const apiMessages = messages.filter(m => m.sender !== 'bot' || !m.type).map(m => ({
+            role: m.sender === 'user' ? 'user' : 'assistant',
+            content: m.text
+        }));
+        
+        apiMessages.push(userMsg);
+
+        setIsTyping(true);
+
+        try {
+            const API_URL = import.meta.env.VITE_API_URL || 'https://jones-boldvizbyte.onrender.com/api';
+            const res = await fetch(`${API_URL}/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: apiMessages })
+            });
+
+            if (!res.ok) throw new Error("Failed to fetch from AI");
+
+            const data = await res.json();
+            
+            // Check if AI is asking for contact info or trying to schedule
+            const aiText = data.message.content.toLowerCase();
+            if ((aiText.includes('phone') || aiText.includes('mobile') || aiText.includes('contact number')) && leadStep === 0) {
+                 setLeadStep(1); // Manually trigger lead collection if AI brings it up
+            }
+
+            setMessages(prev => [
+                ...prev,
+                { id: Date.now() + 1, text: data.message.content, sender: 'bot', type: 'text' }
+            ]);
+
+        } catch (error) {
+            console.error("Chat Error:", error);
+            setMessages(prev => [
+                ...prev,
+                { id: Date.now() + 1, text: "I'm having a little trouble connecting to my brain right now! Please try calling us directly at +91 7708994392. 🚀", sender: 'bot', type: 'text' }
+            ]);
+        } finally {
+            setIsTyping(false);
         }
     };
 
