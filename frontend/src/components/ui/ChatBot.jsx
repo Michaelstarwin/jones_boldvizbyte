@@ -54,58 +54,84 @@ const ChatBot = () => {
         }, 1000);
     };
 
-    const processResponse = (userInput) => {
-        const lowerInput = userInput.toLowerCase();
+    const SYSTEM_PROMPT = `You are a highly professional, helpful, and energetic digital agency assistant for "BoldVizByte". 
+Company Information:
+- Location: Kovilpatti & Thoothukudi, India.
+- Services: Digital Marketing, SEO (Ranking on Google/Page 1), Web Development, Branding & Design, Video Editing, and IT Solutions.
+- Goal: Help businesses grow online, build their brand, and scale dynamically.
+- Contact info: +91 7708994392, founder.boldvizbyte@gmail.com
 
-        // Lead Collection Flow
+Your Core Responsibilities:
+1. Answer questions about BoldVizByte's services concisely.
+2. Maintain an energetic and professional tone using appropriate emojis (🚀, 💡, 💻).
+3. If users ask for pricing, let them know pricing depends on project scope, but encourage them to provide their contact information so an expert can provide a free quote or audit.
+4. Try to guide the conversation towards collecting their Name, Phone Number, Business Type, and desired Service so the sales team can follow up.
+
+Important Rules:
+- Keep your responses relatively short (under 4 sentences usually). The user is reading this on a small chat widget.
+- Do NOT make up services or prices.
+- If and ONLY if you have collected all their details (Name, Phone, Business, Service), thank them and tell them an expert will call them shortly.`;
+
+    const processResponse = async (userInput) => {
+        // Collect lead details if the user triggers certain keywords or if already requested
         if (leadStep > 0) {
             handleLeadCollection(userInput);
             return;
         }
 
-        // Add user message to history
-        const userMsg = { id: Date.now(), text: userInput, sender: 'user' };
-        // setMessages(prev => [...prev, userMsg]); (Handled in handleSend/handleOptionClick already)
+        // Add user message to history visually (handled in handleSend, but keeping state structure logic here)
+        const userMsg = { role: 'user', content: userInput };
+        
+        // Prepare openAI format messages for the free Pollinations API
+        const apiMessages = messages.filter(m => m.sender !== 'bot' || !m.type).map(m => ({
+            role: m.sender === 'user' ? 'user' : 'assistant',
+            content: m.text
+        }));
+        
+        apiMessages.push(userMsg);
 
-        // Generic Responses
-        if (lowerInput.includes('services') || lowerInput.includes('what do you do') || lowerInput.includes('help')) {
-            addBotMessage(
-                "We provide top-notch digital solutions! Here’s what we offer:\n\n✅ Digital Marketing\n✅ SEO (Ranking on Google)\n✅ Web Development\n✅ Branding & Design\n✅ Video Editing\n✅ IT Solutions\n\nWe are experts in Kovilpatti & Thoothukudi! Which one are you interested in?",
-                "options",
-                ["Web Development", "Digital Marketing", "SEO", "Branding"]
-            );
-        } else if (lowerInput.includes('seo') || lowerInput.includes('rank') || lowerInput.includes('google')) {
-            addBotMessage(
-                "Great question! 🚀 We use advanced SEO strategies to rank websites on Page 1 of Google. \n\nWe specialize in Local SEO for businesses in Kovilpatti & Thoothukudi to dominate local searches. Want a free SEO audit?",
-                "options",
-                ["Yes, Audit my site", "How much does it cost?"]
-            );
-        } else if (lowerInput.includes('price') || lowerInput.includes('cost') || lowerInput.includes('how much') || lowerInput.includes('pricing')) {
-            addBotMessage(
-                "Our pricing depends on your specific business goals and requirements. We believe in providing value! 💎\n\nLet's discuss your needs. Can I have your mobile number for a quick free consultation?",
-                "options",
-                ["Yes, sure", "No thanks"]
-            );
-            setLeadStep(1); // Start lead collection if they agree
-        } else if (lowerInput.includes('contact') || lowerInput.includes('support') || lowerInput.includes('call') || lowerInput.includes('phone')) {
-            addBotMessage(
-                "You can reach us directly at +91 7708994392 or email founder.boldvizbyte@gmail.com. \n\nOr shall we call you back?",
-                "options",
-                ["Call me back", "I will call you"]
-            );
-            if (lowerInput.includes('call me')) setLeadStep(1);
-        } else if (lowerInput.includes('yes') || lowerInput.includes('sure') || lowerInput.includes('yep') || lowerInput.includes('audit')) {
-            addBotMessage("Awesome! Let's get started. May I know your Name?");
-            setLeadStep(1);
-        } else if (lowerInput.includes('no') || lowerInput.includes('thanks') || lowerInput.includes('later')) {
-            addBotMessage("No problem! We'll be here whenever you're ready to grow your business. 🚀 Have a great day!");
-            setLeadStep(0);
-        } else {
-            addBotMessage(
-                "I'm here to help you grow your business online! 🚀 \n\nWould you like a free consultation or to see our services?",
-                "options",
-                ["Free Consultation", "Our Services"]
-            );
+        setIsTyping(true);
+
+        try {
+            // text.pollinations.ai acts as a free drop-in replacement for openai without api keys
+            const res = await fetch('https://text.pollinations.ai/openai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    messages: [
+                        { role: "system", content: SYSTEM_PROMPT },
+                        ...apiMessages
+                    ],
+                    model: 'openai', 
+                    jsonMode: false
+                })
+            });
+
+            if (!res.ok) throw new Error("Failed to fetch from Free AI");
+
+            const data = await res.json();
+            const aiTextResponse = data.choices[0].message.content;
+            
+            // Check if AI is asking for contact info or trying to schedule naturally
+            const lowerAiText = aiTextResponse.toLowerCase();
+            if ((lowerAiText.includes('phone') || lowerAiText.includes('mobile') || lowerAiText.includes('contact number')) && leadStep === 0) {
+                 setLeadStep(1); // Manually trigger custom lead collection UI if AI brings it up
+            }
+
+            setMessages(prev => [
+                ...prev,
+                { id: Date.now() + 1, text: aiTextResponse, sender: 'bot', type: 'text' }
+            ]);
+
+        } catch (error) {
+            console.error("Chat Error:", error);
+            // Fallback response if the free API is down
+            setMessages(prev => [
+                ...prev,
+                { id: Date.now() + 1, text: "I'm having a little trouble connecting to my brain right now! Please try calling us directly at +91 7708994392. 🚀", sender: 'bot', type: 'text' }
+            ]);
+        } finally {
+            setIsTyping(false);
         }
     };
 
