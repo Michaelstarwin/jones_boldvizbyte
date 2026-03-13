@@ -54,24 +54,6 @@ const ChatBot = () => {
         }, 1000);
     };
 
-    const SYSTEM_PROMPT = `You are a highly professional, helpful, and energetic digital agency assistant for "BoldVizByte". 
-Company Information:
-- Location: Kovilpatti & Thoothukudi, India.
-- Services: Digital Marketing, SEO (Ranking on Google/Page 1), Web Development, Branding & Design, Video Editing, and IT Solutions.
-- Goal: Help businesses grow online, build their brand, and scale dynamically.
-- Contact info: +91 7708994392, founder.boldvizbyte@gmail.com
-
-Your Core Responsibilities:
-1. Answer questions about BoldVizByte's services concisely.
-2. Maintain an energetic and professional tone using appropriate emojis (🚀, 💡, 💻).
-3. If users ask for pricing, let them know pricing depends on project scope, but encourage them to provide their contact information so an expert can provide a free quote or audit.
-4. Try to guide the conversation towards collecting their Name, Phone Number, Business Type, and desired Service so the sales team can follow up.
-
-Important Rules:
-- Keep your responses relatively short (under 4 sentences usually). The user is reading this on a small chat widget.
-- Do NOT make up services or prices.
-- If and ONLY if you have collected all their details (Name, Phone, Business, Service), thank them and tell them an expert will call them shortly.`;
-
     const processResponse = async (userInput) => {
         // Collect lead details if the user triggers certain keywords or if already requested
         if (leadStep > 0) {
@@ -82,7 +64,7 @@ Important Rules:
         // Add user message to history visually (handled in handleSend, but keeping state structure logic here)
         const userMsg = { role: 'user', content: userInput };
         
-        // Prepare openAI format messages for the free Pollinations API
+        // Prepare openAI format messages for the backend HF parser
         const apiMessages = messages.filter(m => m.sender !== 'bot' || !m.type).map(m => ({
             role: m.sender === 'user' ? 'user' : 'assistant',
             content: m.text
@@ -93,24 +75,17 @@ Important Rules:
         setIsTyping(true);
 
         try {
-            // text.pollinations.ai acts as a free drop-in replacement for openai without api keys
-            const res = await fetch('https://text.pollinations.ai/openai', {
+            const API_URL = import.meta.env.VITE_API_URL || 'https://jones-boldvizbyte.onrender.com/api';
+            const res = await fetch(`${API_URL}/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    messages: [
-                        { role: "system", content: SYSTEM_PROMPT },
-                        ...apiMessages
-                    ],
-                    model: 'openai', 
-                    jsonMode: false
-                })
+                body: JSON.stringify({ messages: apiMessages })
             });
 
-            if (!res.ok) throw new Error("Failed to fetch from Free AI");
+            if (!res.ok) throw new Error("Failed to fetch from Backend AI Route");
 
             const data = await res.json();
-            const aiTextResponse = data.choices[0].message.content;
+            const aiTextResponse = data.message.content;
             
             // Check if AI is asking for contact info or trying to schedule naturally
             const lowerAiText = aiTextResponse.toLowerCase();
@@ -125,7 +100,7 @@ Important Rules:
 
         } catch (error) {
             console.error("Chat Error:", error);
-            // Fallback response if the free API is down
+            // Fallback response if the backend or API is down
             setMessages(prev => [
                 ...prev,
                 { id: Date.now() + 1, text: "I'm having a little trouble connecting to my brain right now! Please try calling us directly at +91 7708994392. 🚀", sender: 'bot', type: 'text' }
