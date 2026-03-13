@@ -27,7 +27,7 @@ const FloatingContactIcons = () => {
     ];
 
     return (
-        <div className="fixed left-6 bottom-6 z-40 flex flex-col gap-4">
+        <div className="fixed left-6 bottom-24 md:bottom-6 z-40 flex flex-col gap-4">
             {icons.map((item, index) => (
                 <motion.a
                     key={index}

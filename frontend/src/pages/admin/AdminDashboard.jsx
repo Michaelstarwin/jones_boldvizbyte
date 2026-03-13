@@ -658,7 +658,7 @@ const AdminDashboard = () => {
                             ) : (
                                 customServices.map(service => (
                                     <div key={service.id} className="bg-white/5 border border-white/10 p-6 rounded-2xl relative group hover:border-neon-blue/50 transition-colors">
-                                        <button onClick={() => handleDeleteService(service.id)} className="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-colors bg-dark-bg p-2 rounded-full border border-dark-border opacity-0 group-hover:opacity-100 shadow-md view-details-btn"><Trash2 size={16} /></button>
+                                        <button onClick={() => handleDeleteService(service.id)} className="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-colors bg-dark-bg p-2 rounded-full border border-dark-border opacity-100 lg:opacity-0 lg:group-hover:opacity-100 shadow-md view-details-btn"><Trash2 size={16} /></button>
                                         <h4 className="text-xl font-orbitron font-bold text-white mb-3 pr-10">{service.title}</h4>
                                         <div className="text-xs text-neon-blue mb-4 inline-block px-3 py-1 bg-neon-blue/10 rounded-full border border-neon-blue/20 font-semibold uppercase tracking-wider">Best for: {service.bestFor}</div>
                                         <p className="text-sm text-gray-400 line-clamp-4 leading-relaxed">{service.desc}</p>
@@ -710,7 +710,7 @@ const AdminDashboard = () => {
                             ) : (
                                 customCareers.map(career => (
                                     <div key={career.id} className="bg-white/5 border border-white/10 p-6 rounded-2xl relative group hover:border-neon-green/50 transition-colors">
-                                        <button onClick={() => handleDeleteCareer(career.id)} className="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-colors bg-dark-bg p-2 rounded-full border border-dark-border opacity-0 group-hover:opacity-100 shadow-md view-details-btn"><Trash2 size={16} /></button>
+                                        <button onClick={() => handleDeleteCareer(career.id)} className="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-colors bg-dark-bg p-2 rounded-full border border-dark-border opacity-100 lg:opacity-0 lg:group-hover:opacity-100 shadow-md view-details-btn"><Trash2 size={16} /></button>
                                         <div className="flex gap-2 mb-4 pr-10">
                                             <span className="px-3 py-1 bg-neon-green/10 text-neon-green text-xs font-bold rounded-full uppercase tracking-wider">{career.type}</span>
                                             <span className="px-3 py-1 bg-white/10 text-gray-300 border border-white/5 text-xs font-bold rounded-full uppercase tracking-wider">{career.loc}</span>
