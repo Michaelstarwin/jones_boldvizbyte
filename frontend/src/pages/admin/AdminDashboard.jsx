@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldAlert, Trash2, Eye, EyeOff, Calendar, User, Phone, Briefcase, Plus, GripHorizontal, FileText, Download, LogOut } from 'lucide-react';
 import { io } from 'socket.io-client';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://boldvizbyte.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://jones-boldvizbyte.onrender.com/api';
 let socket;
 
 const AdminDashboard = () => {

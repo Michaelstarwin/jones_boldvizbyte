@@ -3,7 +3,7 @@
  * Sends data to Google Apps Script (Sheet + WhatsApp), FormSubmit (Email), and Custom Node.js Backend.
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://boldvizbyte.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://jones-boldvizbyte.onrender.com/api';
 
 const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
 
