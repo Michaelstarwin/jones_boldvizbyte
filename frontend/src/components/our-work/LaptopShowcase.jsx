@@ -21,7 +21,7 @@ const webProjects = [
         id: 3,
         client: 'A M Comfort Inn Admin',
         project: 'Admin Dashboard',
-        url: 'https://amcinnadmin.netlify.app/admin',
+        url: 'https://amcinnadmin.netlify.app/',
         color: 'from-zinc-500 to-gray-700',
     },
     {

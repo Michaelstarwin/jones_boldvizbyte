@@ -58,7 +58,7 @@ const allProjects = [
         before: 'Spreadsheets',
         after: 'Centralized Dashboard',
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-        url: 'https://amcinnadmin.netlify.app/admin',
+        url: 'https://amcinnadmin.netlify.app/',
         color: 'from-zinc-500 to-gray-700',
         typeIcon: Code
     },
