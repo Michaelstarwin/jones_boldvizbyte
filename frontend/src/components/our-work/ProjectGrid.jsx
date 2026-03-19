@@ -46,8 +46,8 @@ const allProjects = [
     {
         id: 103,
         category: 'web-apps',
-        title: 'Internal Management Dashboard',
-        client: 'Management App',
+        title: 'Admin Dashboard',
+        client: 'A M Comfort Inn ',
         industry: 'Business Operations',
         goal: 'Streamline internal tracking and resource management.',
         solution: 'Secure, role-based dashboard.',
@@ -58,7 +58,7 @@ const allProjects = [
         before: 'Spreadsheets',
         after: 'Centralized Dashboard',
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-        url: 'https://bold-viz-byte-management.vercel.app/',
+        url: 'https://amcinnadmin.netlify.app/admin',
         color: 'from-zinc-500 to-gray-700',
         typeIcon: Code
     },

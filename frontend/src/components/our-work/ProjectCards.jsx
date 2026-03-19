@@ -17,7 +17,7 @@ const ProjectCards = () => {
             id: 2,
             name: "A.M. Comfort Inn",
             desc: "Super Admin",
-            url: "https://pongal-wishes3d.netlify.app/", 
+            url: "https://amcinnadmin.netlify.app/admin", 
             color: "from-green-500/20 to-emerald-500/5",
             themeColor: "#10b981"
         },

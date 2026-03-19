@@ -19,9 +19,9 @@ const webProjects = [
     },
     {
         id: 3,
-        client: 'Management App',
-        project: 'Internal Dashboard',
-        url: 'https://bold-viz-byte-management.vercel.app/',
+        client: 'A M Comfort Inn Admin',
+        project: 'Admin Dashboard',
+        url: 'https://amcinnadmin.netlify.app/admin',
         color: 'from-zinc-500 to-gray-700',
     },
     {
