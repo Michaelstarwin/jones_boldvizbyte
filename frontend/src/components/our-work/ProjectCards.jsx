@@ -25,7 +25,7 @@ const ProjectCards = () => {
             id: 3,
             name: "St. Michael church",
             desc: "Church Website",
-            url: "https://pongal-wishes3d.netlify.app/",
+            url: "https://st-micheal-s.vercel.app/",
             color: "from-purple-500/20 to-fuchsia-500/5",
             themeColor: "#a855f7"
         },

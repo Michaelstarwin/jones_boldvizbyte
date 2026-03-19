@@ -39,7 +39,7 @@ const allProjects = [
         before: 'Paper Bulletins',
         after: 'Digital Hub',
         image: 'https://images.unsplash.com/photo-1548625361-ec8f3d178f7e?auto=format&fit=crop&q=80&w=800',
-        url: 'https://stmicheal.netlify.app/',
+        url: 'https://st-micheal-s.vercel.app/',
         color: 'from-green-500 to-emerald-700',
         typeIcon: Globe
     },

@@ -14,7 +14,7 @@ const webProjects = [
         id: 2,
         client: 'St. Michael church',
         project: 'Church Website',
-        url: 'https://stmicheal.netlify.app/',
+        url: 'https://st-micheal-s.vercel.app/',
         color: 'from-green-500 to-emerald-700',
     },
     {
